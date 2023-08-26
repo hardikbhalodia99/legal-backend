@@ -1,0 +1,51 @@
+service: legal-backend
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  stage: ${opt:stage, 'staging'}
+  region: ap-south-1
+
+  environment:
+    APP_ENV: ${self:provider.stage}
+    DB_USERNAME: ${ssm:/${self:provider.stage}/internal/database/legal/username}
+    DB_PASSWORD: ${ssm:/${self:provider.stage}/internal/database/legal/password}
+    DB_NAME: ${ssm:/${self:provider.stage}/internal/database/legal/dbname}
+    DB_HOST: ${ssm:/${self:provider.stage}/internal/database/legal/host}
+    MONGO_URI: ${ssm:/${self:provider.stage}/internal/mongo/legal/uri}
+    APPWRITE_PROJECT_ID : ${ssm:/${self:provider.stage}/internal/appwrite/project-id}
+    APPWRITE_ENDPOINT : ${ssm:/${self:provider.stage}/internal/appwrite/endpoint}
+    APPWRITE_SERVER_API_KEY : ${ssm:/${self:provider.stage}/internal/appwrite/api-key}
+    RAZORPAY_WEBHOOK_SECRET : ${ssm:/${self:provider.stage}/internal/razorpay/webhook-secret}
+
+functions:
+  main:
+    handler: index.handler
+    memorySize: 512
+    timeout: 30
+    events:
+      - http:
+          method: ANY
+          path:  /
+      - http:
+          method: ANY 
+          path: /{proxy+}
+  razorpayEvents:
+    handler: razorpayEvents.handler
+    memorySize: 512
+    timeout: 30
+    events:
+      - http:
+          method: ANY
+          path:  /webhooks/razorpay
+  messageQueue:
+    handler: sqs.handler
+    memorySize: 512
+    timeout: 900
+    events:
+      - sqs: 
+          arn: arn:aws:sqs:ap-south-1:737712331834:legal-${self:provider.stage}.fifo
+          
+      
+plugins:
+  - serverless-prune-plugin

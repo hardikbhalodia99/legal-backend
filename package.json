@@ -1,0 +1,36 @@
+{
+  "name": "legal-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "deploy:staging": "npm install && serverless deploy --stage staging --aws-profile hardik --force"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hardikbhalodia99/legal-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hardikbhalodia99/legal-backend/issues"
+  },
+  "homepage": "https://github.com/hardikbhalodia99/legal-backend#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "moment": "^2.29.4",
+    "mongoose": "^7.4.2",
+    "mysql2": "^3.5.2",
+    "nanoid": "^4.0.2",
+    "node-appwrite": "^9.0.0",
+    "razorpay": "^2.9.1",
+    "sequelize": "^6.32.1",
+    "serverless-http": "^3.2.0",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.1430.0",
+    "serverless": "^3.34.0",
+    "serverless-prune-plugin": "^2.0.2"
+  }
+}
