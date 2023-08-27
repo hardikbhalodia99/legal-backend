@@ -1,5 +1,7 @@
+const { createOrder } = require("./order");
 const { getOrganizationByOrganizationId } = require("./organization");
 const { updatePayment, createPayment, confirmPayment, getPayment } = require("./payment");
+const { getProductByOrganizationIdAndSlug } = require("./product");
 const { getLegalDB, getClientModel,getEmployeeModel,getInvoiceModel,getOrderModel,getOrganizationModel,getProductModel, getPaymentModel } = require("./utils");
 
 //utils exports
@@ -21,3 +23,11 @@ module.exports.updatePayment = updatePayment;
 module.exports.createPayment = createPayment;
 module.exports.confirmPayment = confirmPayment;
 module.exports.getPayment = getPayment;
+
+
+//products exports
+module.exports.getProductByOrganizationIdAndSlug = getProductByOrganizationIdAndSlug;
+
+
+//order exxports
+module.exports.createOrder = createOrder;

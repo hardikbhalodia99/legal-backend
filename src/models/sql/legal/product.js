@@ -19,6 +19,9 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.FLOAT,
         defaultValue : 0
 			},
+			product_slug : {
+				type : DataTypes.STRING
+			}
 		},
 		{  
 			timestamps: true,

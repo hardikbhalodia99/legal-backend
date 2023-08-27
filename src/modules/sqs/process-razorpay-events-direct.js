@@ -1,5 +1,6 @@
 const { createAppwriteAccount } = require("../../utils/appwrite/client");
-const { getOrganizationByOrganizationId, confirmPayment } = require("../../utils/sql/legal");
+const { createMongoClient } = require("../../utils/mongo");
+const { getOrganizationByOrganizationId, confirmPayment, getProductByOrganizationIdAndSlug, createOrder } = require("../../utils/sql/legal");
 const { createSQLClient } = require("../../utils/sql/legal/client");
 
 async function processRazorpayEventsDirect(messageAttributes){
@@ -46,9 +47,28 @@ async function processRazorpayEventsDirect(messageAttributes){
 
     let productKeys = Object.keys(products)
 
+    const mongoClient = await createMongoClient({
+      client_id : client.client_id,
+    })
     
     if(productKeys.include('pvt-ltd')){
+      const pvtProduct = await getProductByOrganizationIdAndSlug({
+        organization_id : organization_id,
+        product_slug : 'pvt-ltd'
+      })
+      console.log("%c 🌽 pvtProduct", "color:#7f2b82", pvtProduct);
 
+      const order = await createOrder({
+        organization_id : organization_id,
+        product_id : pvtProduct.product_id,
+        client_id : client.client_id,
+        order_amount : pvtProduct.product_price,
+        quantity : 1,
+        reference_id : payment_id
+      })
+      console.log("%c 🥚 order", "color:#465975", order);
+
+      
     }
 
 
