@@ -3,6 +3,6 @@ const router = express.Router();
 
 const clientRoutes = require("./controllers/client/client.route");
 
-router.use("/v1/client", clientRoutes);
+router.use("/client", clientRoutes);
 
 module.exports = router;

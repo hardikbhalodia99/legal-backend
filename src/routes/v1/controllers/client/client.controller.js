@@ -62,8 +62,9 @@ module.exports.addCompanyDetails = async (request, response, next) => {
       message: "Your details have been added successfully.",
       data: createClient,
     });
-  } catch (e) {
+  } catch (error) {
     // Return status 500 if any error occurs
+    console.error("Server Error in controllers/client at addCompanyDetails ==> Error : ",error)
     return response.status(500).json({
       status: false,
       message: "Something went wrong. Please try again.",
@@ -123,7 +124,7 @@ module.exports.updateOfficeDetailsById = async (request, response, next) => {
     }
 
     // Return Status true and data after successfully adding Office Details
-    return response.json({
+    return response.status(200).json({
       status: true,
       message: "Your details have been added successfully.",
       data: createClient,

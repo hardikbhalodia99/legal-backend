@@ -13,6 +13,6 @@ app.get("/",(req,res)=>{
   return res.status(200).json({})
 })
 
-app.use("/", router);
+app.use("/v1", router);
 
 module.exports.handler = serverless(app);
