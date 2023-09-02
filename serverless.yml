@@ -8,15 +8,15 @@ provider:
 
   environment:
     APP_ENV: ${self:provider.stage}
-    DB_USERNAME: ${ssm:/${self:provider.stage}/internal/database/legal/username}
-    DB_PASSWORD: ${ssm:/${self:provider.stage}/internal/database/legal/password}
-    DB_NAME: ${ssm:/${self:provider.stage}/internal/database/legal/dbname}
-    DB_HOST: ${ssm:/${self:provider.stage}/internal/database/legal/host}
-    MONGO_URI: ${ssm:/${self:provider.stage}/internal/mongo/legal/uri}
-    APPWRITE_PROJECT_ID : ${ssm:/${self:provider.stage}/internal/appwrite/project-id}
+    DB_USERNAME: ${ssm:/${self:provider.stage}/internal/legal/username}
+    DB_PASSWORD: ${ssm:/${self:provider.stage}/internal/legal/password}
+    DB_NAME: ${ssm:/${self:provider.stage}/internal/legal/dbname}
+    DB_HOST: ${ssm:/${self:provider.stage}/internal/legal/host}
+    MONGO_URI: ${ssm:/${self:provider.stage}/internal/mongo/dburi}
+    APPWRITE_PROJECT_ID : ${ssm:/${self:provider.stage}/internal/appwrite/projectid}
     APPWRITE_ENDPOINT : ${ssm:/${self:provider.stage}/internal/appwrite/endpoint}
-    APPWRITE_SERVER_API_KEY : ${ssm:/${self:provider.stage}/internal/appwrite/api-key}
-    RAZORPAY_WEBHOOK_SECRET : ${ssm:/${self:provider.stage}/internal/razorpay/webhook-secret}
+    APPWRITE_SERVER_API_KEY : ${ssm:/${self:provider.stage}/internal/appwrite/apikey}
+    RAZORPAY_WEBHOOK_SECRET : ${ssm:/${self:provider.stage}/internal/razorpay/webhook/secret}
 
 functions:
   main:
@@ -44,7 +44,7 @@ functions:
     timeout: 900
     events:
       - sqs: 
-          arn: arn:aws:sqs:ap-south-1:737712331834:legal-${self:provider.stage}.fifo
+          arn: arn:aws:sqs:ap-south-1:865096565437:legal-${self:provider.stage}.fifo
           
       
 plugins:

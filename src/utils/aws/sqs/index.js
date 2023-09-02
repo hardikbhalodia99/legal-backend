@@ -9,7 +9,7 @@ async function addToSQSQueue({data,type}){
       const response = await sqs.sendMessage({
         MessageBody: type,
         MessageAttributes: data,
-        QueueUrl: `https://sqs.ap-south-1.amazonaws.com/737712331834/legal-${process.env.APP_ENV}.fifo`,
+        QueueUrl: `https://sqs.ap-south-1.amazonaws.com/865096565437/legal-${process.env.APP_ENV}.fifo`,
         MessageGroupId: "fifo",
         MessageDeduplicationId: dedup
       }).promise();

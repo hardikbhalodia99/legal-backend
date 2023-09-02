@@ -8,7 +8,7 @@ module.exports.handler = async (event, context) => {
         for (let message of event.Records) {
             console.log(`Handling message: ${message.messageId}`);
             var params = {
-                QueueUrl: `https://sqs.ap-south-1.amazonaws.com/737712331834/legal-${process.env.APP_ENV}.fifo`,
+                QueueUrl: `https://sqs.ap-south-1.amazonaws.com/865096565437/legal-${process.env.APP_ENV}.fifo`,
                 ReceiptHandle: message.receiptHandle
             };
             console.log("raw body",message.body);
