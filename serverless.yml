@@ -13,9 +13,9 @@ provider:
     DB_NAME: ${ssm:/${self:provider.stage}/internal/legal/dbname}
     DB_HOST: ${ssm:/${self:provider.stage}/internal/legal/host}
     MONGO_URI: ${ssm:/${self:provider.stage}/internal/mongo/dburi}
-    APPWRITE_PROJECT_ID : ${ssm:/${self:provider.stage}/internal/appwrite/projectid}
-    APPWRITE_ENDPOINT : ${ssm:/${self:provider.stage}/internal/appwrite/endpoint}
-    APPWRITE_SERVER_API_KEY : ${ssm:/${self:provider.stage}/internal/appwrite/apikey}
+    APPWRITE_PROJECT_ID : ${ssm:/${self:provider.stage}/internal/apwrite/projectid}
+    APPWRITE_ENDPOINT : ${ssm:/${self:provider.stage}/internal/apwrite/endpoint}
+    APPWRITE_SERVER_API_KEY : ${ssm:/${self:provider.stage}/internal/apwrite/apikey}
     RAZORPAY_WEBHOOK_SECRET : ${ssm:/${self:provider.stage}/internal/razorpay/webhook/secret}
 
 functions:
