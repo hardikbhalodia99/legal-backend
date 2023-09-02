@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "deploy:staging": "npm install && serverless deploy --stage staging --aws-profile hardik --force"
+    "deploy:staging": "npm install && serverless deploy --stage staging --aws-profile legal --force"
   },
   "repository": {
     "type": "git",
