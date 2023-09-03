@@ -13,6 +13,10 @@ const OrganizationSchema = new Schema(
 		razorpay_api_key_secret: {
 			type: String,
 		},
+		isDeleted: {
+			type: Boolean,
+			default: false
+		}
 	},
 	{
 		timestamps: true,
