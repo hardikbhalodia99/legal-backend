@@ -13,10 +13,33 @@ router.post(
 
 // Add Office Details
 router.patch(
-  "/:id",
+  "/office/:id",
   clientValidator.updateOfficeDetailsById,
   clientController.updateOfficeDetailsById
 );
 
+// Add Director Information
+router.patch(
+  "/director/:id",
+  clientValidator.updateDirectorDetailsById,
+  clientController.updateDirectorDetailsById
+);
+
+// Add Nominee Information
+router.patch(
+  "/nominee/:id",
+  clientValidator.updateNomineeDetailsById,
+  clientController.updateNomineeDetailsById
+);
+
+// Update Client Information
+router.put(
+  "/:id",
+  clientValidator.updateClientDetailsById,
+  clientController.updateClientDetailsById
+);
+
+// Get Client Information
+router.put("/:id", clientController.getClientDetailsById);
 
 module.exports = router;

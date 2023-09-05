@@ -15,6 +15,10 @@ const NomineeSchema = new Schema(
 		current_occupation: { type: String },
 		citizenship: { type: Number },
 		nominee_address: { type: String },
+		nominee_city: { type: String },
+		nominee_state: { type: String },
+		nominee_pin_code: { type: String },
+		nominee_country: { type: String },
 		nominee_designation: { type: String },
 		documents: {
 			nominee_image: { type: String },
