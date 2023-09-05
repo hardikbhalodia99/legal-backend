@@ -5,7 +5,13 @@ provider:
   runtime: nodejs16.x
   stage: ${opt:stage, 'staging'}
   region: ap-south-1
-
+   "Effect": "Allow",
+  "Action": [
+    "ssm:*"
+  ],
+  "Resource": [
+    "*"
+  ]
   environment:
     APP_ENV: ${self:provider.stage}
     DB_USERNAME: ${ssm:/${self:provider.stage}/internal/legal/username}
