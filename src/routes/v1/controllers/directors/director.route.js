@@ -14,12 +14,7 @@ router.patch(
   directorController.updateDocumentLinkById
 );
 
-// Update Director Information
-router.put(
-  "/:id",
-  directorValidator.updateDirectorDetailsById,
-  directorController.updateDirectorDetailsById
-);
+
 
 // Get Director Information
 router.put("/:id", directorController.getDirectorDetailsById);

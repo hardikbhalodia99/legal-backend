@@ -1,3 +1,4 @@
+const { generateRandomString } = require("../../index")
 const { getLegalDB, getOrganizationModel } = require("./utils")
 
 async function getOrganizationByOrganizationId({organization_id}){
@@ -19,4 +20,23 @@ async function getOrganizationByOrganizationId({organization_id}){
   }
 }
 
+async function createOrganization({organization_name}){
+  try{
+    const sequelize = await getLegalDB()
+    const OrganizationModel = await getOrganizationModel(sequelize)
+
+    const organization_id = "ORG" + generateRandomString()
+
+    const organization = await OrganizationModel.create({
+      organization_id : organization_id,
+      organization_name : organization_name
+    })
+
+    return organization
+  }catch(error){
+    console.error("Server Error at sql/organization in createOrganization ==> Error : ",error)
+  }
+}
+
 module.exports.getOrganizationByOrganizationId = getOrganizationByOrganizationId;
+module.exports.createOrganization = createOrganization;

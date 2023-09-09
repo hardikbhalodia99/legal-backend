@@ -21,22 +21,6 @@ module.exports.addNominee = async (request, response, next) => {
       nominee_designation,
     } = request.body;
 
-    // Check For already Existing Data
-    const nomineeData = await Nominee.findOne({
-      client_id,
-      nominee_id,
-      nominee_name,
-      isDeleted: false,
-    });
-
-    // If Nominee Details Already exists, throw 409 error
-    if (nomineeData) {
-      return response.status(409).json({
-        status: false,
-        message: "Nominee Details Already Found.",
-        data: null,
-      });
-    }
 
     // If Nominee Details not found then add Nominee Details
     const createNominee = await Client.create({

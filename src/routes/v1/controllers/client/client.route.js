@@ -32,12 +32,7 @@ router.patch(
   clientController.updateNomineeDetailsById
 );
 
-// Update Client Information
-router.put(
-  "/:id",
-  clientValidator.updateClientDetailsById,
-  clientController.updateClientDetailsById
-);
+
 
 // Get Client Information
 router.put("/:id", clientController.getClientDetailsById);

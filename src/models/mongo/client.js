@@ -11,15 +11,7 @@ const ClientSchema = new Schema(
     director_information: {
       total_directors: {
         type: Number,
-      },
-      director_1: { type: String },
-      director_2: { type: String },
-      director_3: { type: String },
-      director_4: { type: String },
-    },
-    nominee_information: {
-      nominee_1: { type: String },
-      nominee_2: { type: String },
+      }
     },
     company_details: {
       company_email: { type: String, required: true },

@@ -36,7 +36,7 @@ module.exports.addDirector = (request, response, next) => {
       .json({ status: false, message: error, data: null });
   } else {
     // If no error found continue next
-    return next();
+    next();
   }
 };
 
