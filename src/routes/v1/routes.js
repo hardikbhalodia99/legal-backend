@@ -6,6 +6,7 @@ import directorRoutes from "./controllers/directors/director.route.js";
 import nomineeRoutes from "./controllers/nominees/nominee.route.js";
 import ProductRoutes from "./controllers/product/product.route.js";
 import { testFunction } from "./controllers/test.js";
+import PaymentRoutes from "./controllers/payment/payment.routes.js"
 
 router.use("/client", clientRoutes);
 router.use("/director", directorRoutes);
@@ -14,5 +15,7 @@ router.use("/nominee", nomineeRoutes);
 router.use("/product",ProductRoutes)
 
 router.get("/test",testFunction)
+
+router.use("/payment",PaymentRoutes)
 
 export default router;

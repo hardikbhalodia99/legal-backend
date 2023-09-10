@@ -18,12 +18,12 @@ export async function getOrganizationProductDetailsById(request, response, next)
       responseData = await getPvtLtdAllProductDetails({organization_id : organization_id})
     }
 
-    return response.status(200).json({
+    return response.status(200).set({"Access-Control-Allow-Origin" : "*"}).json({
       product_data : responseData,
     });
   } catch (error) {
     console.error("Server Error in controllers/organization/index at getOrganizationProductDetailsById ==> Error : ",error)
-    return response.status(500).json({
+    return response.status(500).set({"Access-Control-Allow-Origin" : "*"}).json({
       message: "Server Error! Failed to get product details",
     });
   }

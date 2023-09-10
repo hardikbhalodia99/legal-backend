@@ -1,11 +1,11 @@
 import { getLegalDB, getPaymentModel } from "./utils.js";
 
-export async function createPayment({external_order_id,payment_provider,external_payment_id}){
+export async function createPayment({legal_payment_id,external_order_id,payment_provider,external_payment_id}){
   try {
     const sequelize = await getLegalDB();
     const PaymentModel = await getPaymentModel(sequelize);
     const payment = await PaymentModel.create({
-        climes_payment_id : climes_payment_id,
+        legal_payment_id : legal_payment_id,
         external_order_id : external_order_id,
         payment_provider : payment_provider,
         external_payment_id : external_payment_id,

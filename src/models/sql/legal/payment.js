@@ -2,7 +2,7 @@ export default (sequelize, DataTypes) => {
 	const Payment = sequelize.define(
 		"payment",
 		{
-			payment_id: {
+			legal_payment_id: {
 				type: DataTypes.STRING,
 				primaryKey: true,
 			},
