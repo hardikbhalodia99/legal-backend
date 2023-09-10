@@ -1,7 +1,7 @@
-const { generateRandomString } = require("../../index")
-const { getLegalDB  } = require("./utils")
+import { generateRandomString } from "../../index.js"
+import { getLegalDB } from "./utils.js"
 
-async function getClientByClientId({client_id}){
+export async function getClientByClientId({client_id}){
   try{
     const sequelize = await getLegalDB()
     const ClientModel = await getOrganizationModel(sequelize)
@@ -20,7 +20,7 @@ async function getClientByClientId({client_id}){
   }
 }
 
-async function createSQLClient({client_name,client_email,appwrite_id,organization_id}){
+export async function createSQLClient({client_name,client_email,appwrite_id,organization_id}){
   try{
     const sequelize = await getLegalDB()
     const ClientModel = await getOrganizationModel(sequelize)
@@ -40,7 +40,3 @@ async function createSQLClient({client_name,client_email,appwrite_id,organizatio
     console.error("Server Error at sql/client in createSQLClient ==> Error : ",error)
   }
 }
-
-
-module.exports.createSQLClient = createSQLClient;
-module.exports.getClientByClientId = getClientByClientId;

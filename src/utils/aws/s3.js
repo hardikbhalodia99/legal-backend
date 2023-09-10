@@ -1,4 +1,7 @@
-async function uploadToS3Bucket({orgnaization_id ,client_id,fileName,folderName,fileExtension,data}){
+let AWS = require('aws-sdk');
+const s3 = new AWS.S3();
+
+export async function uploadToS3Bucket({orgnaization_id ,client_id,fileName,folderName,fileExtension,data}){
   try {
     const params = {
       Bucket: 'legal-user-files',
@@ -14,5 +17,3 @@ async function uploadToS3Bucket({orgnaization_id ,client_id,fileName,folderName,
       console.error("Server Error at utils/aws/s3 in uploadToS3Bucket ==> Error : ",error)
     }
 }
-
-module.exports.uploadToS3Bucket = uploadToS3Bucket;

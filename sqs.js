@@ -1,7 +1,7 @@
-const AWS = require('aws-sdk');
-const sqs = new AWS.SQS({region: 'ap-south-1'});
+import { SQS } from 'aws-sdk';
+const sqs = new SQS({region: 'ap-south-1'});
 
-module.exports.handler = async (event, context) => {
+export async function handler(event, context) {
     try{
         context.callbackWaitsForEmptyEventLoop = false;
 

@@ -1,13 +1,13 @@
-const serverless = require("serverless-http");
-const express = require("express");
+import serverless from "serverless-http";
+import express, { urlencoded, json } from "express";
 const app = express();
 
-const router = require("./src/routes/v1/routes");
+import router from "./src/routes/v1/routes.js";
 
 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json({ limit: '10mb' }));
+app.use(urlencoded({ extended: false }));
+app.use(json({ limit: '10mb' }));
 
 app.use("/v1", router);
 
-module.exports.handler = serverless(app);
+export const handler = serverless(app);

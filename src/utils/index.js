@@ -1,11 +1,9 @@
-const { customAlphabet } = require("nanoid");
+import { customAlphabet } from "nanoid";
 
-
-function generateRandomString(){
+export function generateRandomString(){
 	const nanoid = customAlphabet('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',12)
 	const string = nanoid(12)
 	return string
 }
 
 
-module.exports.generateRandomString = generateRandomString;

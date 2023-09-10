@@ -1,7 +1,7 @@
-const Client = require("../../../../models/mongo/client");
+import Client from "../../../../models/mongo/client.js";
 
 // Add New Client API
-module.exports.addCompanyDetails = async (request, response, next) => {
+export async function addCompanyDetails(request, response, next) {
   try {
     // Get All Request Data
     const {
@@ -74,10 +74,10 @@ module.exports.addCompanyDetails = async (request, response, next) => {
       data: null,
     });
   }
-};
+}
 
 // Add Office Details to Client Id
-module.exports.updateOfficeDetailsById = async (request, response, next) => {
+export async function updateOfficeDetailsById(request, response, next) {
   try {
     // Get All Request Data
     const { owner_name, address, city, state, country, pin_code } =
@@ -144,10 +144,10 @@ module.exports.updateOfficeDetailsById = async (request, response, next) => {
       data: null,
     });
   }
-};
+}
 
 // Add Director Details to Client Id
-module.exports.updateDirectorDetailsById = async (request, response, next) => {
+export async function updateDirectorDetailsById(request, response, next) {
   try {
     // Get All Request Data
     const { name, director_id } = request.body;
@@ -205,10 +205,10 @@ module.exports.updateDirectorDetailsById = async (request, response, next) => {
       data: null,
     });
   }
-};
+}
 
 // Add Nominee Details to Client Id
-module.exports.updateNomineeDetailsById = async (request, response, next) => {
+export async function updateNomineeDetailsById(request, response, next) {
   try {
     // Get All Request Data
     const { name, nominee_id } = request.body;
@@ -266,10 +266,10 @@ module.exports.updateNomineeDetailsById = async (request, response, next) => {
       data: null,
     });
   }
-};
+}
 
 // Get Client Details By Id
-module.exports.getClientDetailsById = async (request, response, next) => {
+export async function getClientDetailsById(request, response, next) {
   try {
     const { id } = request.params;
 
@@ -295,4 +295,4 @@ module.exports.getClientDetailsById = async (request, response, next) => {
       data: null,
     });
   }
-};
+}

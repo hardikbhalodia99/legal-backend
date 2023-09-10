@@ -1,7 +1,7 @@
-const Nominee = require("../../../../models/mongo/nominees");
+import NomineesModel from "../../../../models/mongo/nominees.js";
 
 // Add New Nominee API
-module.exports.addNominee = async (request, response, next) => {
+export async function addNominee(request, response, next) {
   try {
     // Get All Request Data
     const {
@@ -67,10 +67,10 @@ module.exports.addNominee = async (request, response, next) => {
       data: null,
     });
   }
-};
+}
 
 // Upload Document and update Link in Document Details By Id
-module.exports.updateDocumentLinkById = async (request, response, next) => {
+export async function updateDocumentLinkById(request, response, next) {
   try {
     // Get All Request Data
     const { documentFor, source } = request.body;
@@ -78,7 +78,7 @@ module.exports.updateDocumentLinkById = async (request, response, next) => {
     const { id } = request.params;
 
     //Check for id existence
-    const nomineeData = await Nominee.findOne({
+    const nomineeData = await NomineesModel.findOne({
       _id: id,
       isDeleted: false,
     });
@@ -149,10 +149,10 @@ module.exports.updateDocumentLinkById = async (request, response, next) => {
       data: null,
     });
   }
-};
+}
 
 // Update Nominee Details By Id
-module.exports.updateNomineeDetailsById = async (request, response, next) => {
+export async function updateNomineeDetailsById(request, response, next) {
   try {
     // Get All Request Data
     const {
@@ -176,7 +176,7 @@ module.exports.updateNomineeDetailsById = async (request, response, next) => {
     const { id } = request.params;
 
     //Check for id existence
-    const nomineeData = await Nominee.findOne({
+    const nomineeData = await NomineesModel.findOne({
       _id: id,
       isDeleted: false,
     });
@@ -241,14 +241,14 @@ module.exports.updateNomineeDetailsById = async (request, response, next) => {
       data: null,
     });
   }
-};
+}
 
 // Get Nominee Details By Id
-module.exports.getNomineeDetailsById = async (request, response, next) => {
+export async function getNomineeDetailsById(request, response, next) {
   try {
     const { id } = request.params;
 
-    const nomineeData = await Nominee.findById(id);
+    const nomineeData = await NomineesModel.findById(id);
 
     if (!nomineeData) {
       return response.status(400).json({
@@ -270,4 +270,4 @@ module.exports.getNomineeDetailsById = async (request, response, next) => {
       data: null,
     });
   }
-};
+}

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-
+  "type" : "module",
   "scripts": {
     "deploy:staging": "npm install && serverless deploy --stage staging --aws-profile legal --force",
     "v1:get": "serverless invoke local --function main --path requests/v1/test.json"

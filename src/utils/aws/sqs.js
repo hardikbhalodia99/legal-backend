@@ -1,8 +1,8 @@
-const AWS = require('aws-sdk');
-const sqs = new AWS.SQS({region: 'ap-south-1'});
-const { v4: uuidv4 } = require('uuid');
+import { SQS } from 'aws-sdk';
+const sqs = new SQS({region: 'ap-south-1'});
+import { v4 as uuidv4 } from 'uuid';
 
-async function addToSQSQueue({data,type}){
+export async function addToSQSQueue({data,type}){
   try {
       let dedup = uuidv4();
       console.log("dedup " , dedup);
@@ -19,5 +19,3 @@ async function addToSQSQueue({data,type}){
     console.log('Exception on queue', e);
   }
 }
-
-module.exports.addToSQSQueue = addToSQSQueue;

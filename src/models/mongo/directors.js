@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+import * as mongoose from "mongoose";
+const Schema = mongoose.Schema
 
 const DirectorSchema = new Schema(
 	{
@@ -37,5 +37,4 @@ const DirectorSchema = new Schema(
 	}
 );
 
-module.exports =
-	mongoose.models.Director || mongoose.model("Director", DirectorSchema);
+export default mongoose.model("Director", DirectorSchema);

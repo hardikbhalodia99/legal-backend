@@ -1,7 +1,7 @@
-const { getProductByOrganizationIdAndSlug } = require("../../../../utils/sql/legal/product");
+import { getProductByOrganizationIdAndSlug } from "../../../../utils/sql/legal/product.js";
 
 
-async function getOrganizationProductDetailsById(request, response, next){
+export async function getOrganizationProductDetailsById(request, response, next){
   try {
     const { organization_id,product_slug } = request.params;
 
@@ -80,5 +80,3 @@ async function getPvtLtdAllProductDetails({organization_id}){
   return responseData
 }
 
-
-module.exports.getOrganizationProductDetailsById = getOrganizationProductDetailsById;

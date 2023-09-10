@@ -1,8 +1,8 @@
-const express = require("express");
-const router = express.Router();
+import { Router } from "express";
+const router = Router();
 
-const { getOrganizationProductDetailsById } = require("./index");
+import { getOrganizationProductDetailsById } from "./index.js";
 
 router.get("/:organization_id/:slug",getOrganizationProductDetailsById)
 
-module.exports = router;
+export default router;

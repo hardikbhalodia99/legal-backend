@@ -1,6 +1,6 @@
 {
   "httpMethod": "GET",
-  "path": "/test",
+  "path": "/v1/test",
   "headers": {
     "Content-Type": "application/json"
   },

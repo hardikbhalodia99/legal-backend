@@ -1,7 +1,8 @@
-const mongoose = require("mongoose")
+import { connect } from "mongoose";
+import { MONGO_DB_URI } from "../constants/index.js";
 
 let cachedMongooseDb = null;
-async function connectToMongooseDatabase(){
+export async function connectToMongooseDatabase(){
   try{
 
     if (cachedMongooseDb) {
@@ -9,7 +10,7 @@ async function connectToMongooseDatabase(){
       return cachedMongooseDb;
     }
     console.log("Non cachedMongooseDb")
-    const db = await mongoose.connect(process.env.MONGO_URI);
+    const db = await connect(MONGO_DB_URI);
     cachedMongooseDb = db;
     return db
   }catch(error){
@@ -17,4 +18,3 @@ async function connectToMongooseDatabase(){
   }
 }
 
-module.exports.connectToMongooseDatabase = connectToMongooseDatabase;

@@ -1,6 +1,6 @@
-var path = require("path");
+import { extname } from "path";
 
-exports.fileValidation = (file) => {
+export const fileValidation = (file) => {
   var allowedExtensions = [
     ".jpg",
     ".jpeg",
@@ -10,7 +10,7 @@ exports.fileValidation = (file) => {
     ".doc",
     ".pdf",
   ]; //add as per requirements
-  var fileExtension = path.extname(file.name);
+  var fileExtension = extname(file.name);
   if (!allowedExtensions.includes(fileExtension)) {
     return { status: false, message: "Invalid File Type" };
   }

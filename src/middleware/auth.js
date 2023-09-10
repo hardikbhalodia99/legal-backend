@@ -1,7 +1,7 @@
-const { getAuthUserFallbackCookie, getCookie, cookieConfig } = require('./cookies');
-const { getUserAccount } = require('./appwrite');
+import { getAuthUserFallbackCookie, getCookie, cookieConfig } from './cookies.js';
+import { getUserAccount } from './appwrite.js';
 
-const validateAuth = async (req, res) => {
+export const validateAuth = async (req, res) => {
   console.log('%c 🍰 req.headers.authorization', 'color:#7f2b82', req.headers.authorization);
   const fallbackCookieName = getAuthUserFallbackCookie();
   const reqConfig = {
@@ -28,4 +28,3 @@ const validateAuth = async (req, res) => {
 };
 
 
-module.exports.validateAuth = validateAuth;

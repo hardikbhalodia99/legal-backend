@@ -1,40 +1,27 @@
-const express = require("express");
-const router = express.Router();
+import { Router } from "express";
+const router = Router();
 
-const clientController = require("./client.controller"); // Client Controller
-const clientValidator = require("./client.validator"); // Client Validator
+import {
+	addCompanyDetails,
+	updateOfficeDetailsById,
+	updateDirectorDetailsById,
+	updateNomineeDetailsById,
+	getClientDetailsById,
+} from "./client.controller.js"; // Client Controller
 
 // Add Company Details
-router.post(
-  "/",
-  clientValidator.addCompanyDetails,
-  clientController.addCompanyDetails
-);
+router.post("/", addCompanyDetails);
 
 // Add Office Details
-router.patch(
-  "/office/:id",
-  clientValidator.updateOfficeDetailsById,
-  clientController.updateOfficeDetailsById
-);
+router.patch("/office/:id", updateOfficeDetailsById);
 
 // Add Director Information
-router.patch(
-  "/director/:id",
-  clientValidator.updateDirectorDetailsById,
-  clientController.updateDirectorDetailsById
-);
+router.patch("/director/:id", updateDirectorDetailsById);
 
 // Add Nominee Information
-router.patch(
-  "/nominee/:id",
-  clientValidator.updateNomineeDetailsById,
-  clientController.updateNomineeDetailsById
-);
-
-
+router.patch("/nominee/:id", updateNomineeDetailsById);
 
 // Get Client Information
-router.put("/:id", clientController.getClientDetailsById);
+router.put("/:id", getClientDetailsById);
 
-module.exports = router;
+export default router;

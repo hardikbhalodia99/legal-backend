@@ -1,7 +1,7 @@
-const Director = require("../../../../models/mongo/directors");
+import DirectorsModel from "../../../../models/mongo/directors.js";
 
 // Add New Director API
-module.exports.addDirector = async (request, response, next) => {
+export async function addDirector(request, response, next) {
   try {
     // Get All Request Data
     const {
@@ -26,7 +26,7 @@ module.exports.addDirector = async (request, response, next) => {
     } = request.body;
 
     // Check For already Existing Data
-    const directorData = await Director.findOne({
+    const directorData = await DirectorsModel.findOne({
       client_id,
       director_id,
       director_name,
@@ -91,10 +91,10 @@ module.exports.addDirector = async (request, response, next) => {
       data: null,
     });
   }
-};
+}
 
 // Upload Document and update Link in Document Details By Id
-module.exports.updateDocumentLinkById = async (request, response, next) => {
+export async function updateDocumentLinkById(request, response, next) {
   try {
     // Get All Request Data
     const { documentFor, source } = request.body;
@@ -102,7 +102,7 @@ module.exports.updateDocumentLinkById = async (request, response, next) => {
     const { id } = request.params;
 
     //Check for id existence
-    const directorData = await Director.findOne({
+    const directorData = await DirectorsModel.findOne({
       _id: id,
       isDeleted: false,
     });
@@ -173,10 +173,10 @@ module.exports.updateDocumentLinkById = async (request, response, next) => {
       data: null,
     });
   }
-};
+}
 
 // Update Director Details By Id
-module.exports.updateDirectorDetailsById = async (request, response, next) => {
+export async function updateDirectorDetailsById(request, response, next) {
   try {
     // Get All Request Data
     const {
@@ -204,7 +204,7 @@ module.exports.updateDirectorDetailsById = async (request, response, next) => {
     const { id } = request.params;
 
     //Check for id existence
-    const directorData = await Director.findOne({
+    const directorData = await DirectorsModel.findOne({
       _id: id,
       isDeleted: false,
     });
@@ -273,14 +273,14 @@ module.exports.updateDirectorDetailsById = async (request, response, next) => {
       data: null,
     });
   }
-};
+}
 
 // Get Director Details By Id
-module.exports.getDirectorDetailsById = async (request, response, next) => {
+export async function getDirectorDetailsById(request, response, next) {
   try {
     const { id } = request.params;
 
-    const directorData = await Director.findById(id);
+    const directorData = await DirectorsModel.findById(id);
 
     if (!directorData) {
       return response.status(400).json({
@@ -302,4 +302,4 @@ module.exports.getDirectorDetailsById = async (request, response, next) => {
       data: null,
     });
   }
-};
+}

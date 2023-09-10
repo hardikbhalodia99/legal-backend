@@ -7,11 +7,11 @@ provider:
   region: ap-south-1
   iamRoleStatements:
   - Effect: Allow
-        Action:
-          - "s3:*"
-        Resource: 
-          - { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ]]}
-          - "arn:aws:s3:::legal-user-files/*"
+    Action:
+      - "s3:*"
+    Resource: 
+      - { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ]]}
+      - "arn:aws:s3:::legal-user-files/*"
   environment:
     APP_ENV: ${self:provider.stage}
     DB_USERNAME: ${ssm:/${self:provider.stage}/internal/legal/username}

@@ -1,9 +1,9 @@
-const { createAppwriteAccount } = require("../../utils/appwrite/client");
-const { createMongoClient } = require("../../utils/mongo");
-const { getOrganizationByOrganizationId, confirmPayment, getProductByOrganizationIdAndSlug, createOrder } = require("../../utils/sql/legal");
-const { createSQLClient } = require("../../utils/sql/legal/client");
+import { createAppwriteAccount } from "../../utils/appwrite/client.js";
+import { createMongoClient } from "../../utils/mongo/index.js";
+import { getOrganizationByOrganizationId, confirmPayment, getProductByOrganizationIdAndSlug, createOrder } from "../../utils/sql/legal/index.js";
+import { createSQLClient } from "../../utils/sql/legal/client.js";
 
-async function processRazorpayEventsDirect(messageAttributes){
+export async function processRazorpayEventsDirect(messageAttributes){
   try{
 
     const {rzpData} = messageAttributes;
@@ -80,4 +80,3 @@ async function processRazorpayEventsDirect(messageAttributes){
   }
 }
 
-module.exports.processRazorpayEventsDirect = processRazorpayEventsDirect;

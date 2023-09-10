@@ -1,27 +1,27 @@
-const express = require("express");
-const router = express.Router();
+import { Router } from "express";
+const router = Router();
 
-const nomineeController = require("./nominee.controller"); // Nominee Controller
-const nomineeValidator = require("./nominee.validator"); // Nominee Validator
+import {
+	addNominee,
+	updateDocumentLinkById,
+	updateNomineeDetailsById,
+	getNomineeDetailsById,
+} from "./nominee.controller.js"; // Nominee Controller
 
 // Add Nominee Information
-router.post("/", nomineeValidator.addNominee, nomineeController.addNominee);
+router.post("/", addNominee);
 
 // Upload Attached Documents to Nominee
-router.patch(
-  "/:id",
-  nomineeValidator.updateDocumentLinkById,
-  nomineeController.updateDocumentLinkById
-);
+router.patch("/:id", updateDocumentLinkById);
 
 // Update Nominee Information
 router.put(
-  "/:id",
-  nomineeValidator.updateNomineeDetailsById,
-  nomineeController.updateNomineeDetailsById
+	"/:id",
+
+	updateNomineeDetailsById
 );
 
 // Get Nominee Information
-router.put("/:id", nomineeController.getNomineeDetailsById);
+router.put("/:id", getNomineeDetailsById);
 
-module.exports = router;
+export default router;

@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+import * as mongoose from "mongoose";
+const Schema = mongoose.Schema
 
 const NomineeSchema = new Schema(
 	{
@@ -34,5 +34,4 @@ const NomineeSchema = new Schema(
 	}
 );
 
-module.exports =
-	mongoose.models.Nominee || mongoose.model("Nominee", NomineeSchema);
+export default mongoose.model("Nominee", NomineeSchema);

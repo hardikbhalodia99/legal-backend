@@ -1,7 +1,7 @@
-const { getUserAccount } = require('./appwrite');
-const { setCookie, getAuthUserFallbackCookie, getAuthUserTokensCookieName, getAuthUserCookieName, cookieConfig } = require('./cookies');
+import { getUserAccount } from './appwrite.js';
+import { setCookie, getAuthUserFallbackCookie, getAuthUserTokensCookieName, getAuthUserCookieName, cookieConfig } from './cookies.js';
 
-const setCookieValues = async (token,fallbackToken,req, res) => {
+export const setCookieValues = async (token,fallbackToken,req, res) => {
     setCookie({
         name: getAuthUserFallbackCookie(),
         // Note: any change to cookie data structure needs to be
@@ -35,22 +35,17 @@ const setCookieValues = async (token,fallbackToken,req, res) => {
     return user;
   }
   
-   const setAuthCookies = async (req, res) => {
-    if (!(req.headers && req.headers.authorization)) {
-      throw new Error('The request is missing an Authorization header value')
-    }
-  
-    const token = req.headers.authorization
-    const fallbackToken = req.headers['X-Fallback-Cookies']? req.headers['X-Fallback-Cookies'].toString() : req.headers['x-fallback-cookies']?.toString();
-  
-    const user = await setCookieValues(token,fallbackToken,req,res);
-    return {
-      token,
-      user
-    }
+export const setAuthCookies = async (req, res) => {
+  if (!(req.headers && req.headers.authorization)) {
+    throw new Error('The request is missing an Authorization header value')
   }
 
+  const token = req.headers.authorization
+  const fallbackToken = req.headers['X-Fallback-Cookies']? req.headers['X-Fallback-Cookies'].toString() : req.headers['x-fallback-cookies']?.toString();
 
-
-  module.exports.setCookieValues = setCookieValues
-  module.exports.setAuthCookies = setAuthCookies
+  const user = await setCookieValues(token,fallbackToken,req,res);
+  return {
+    token,
+    user
+  }
+}

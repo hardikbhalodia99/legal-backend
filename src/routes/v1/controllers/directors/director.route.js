@@ -1,22 +1,19 @@
-const express = require("express");
-const router = express.Router();
+import { Router } from "express";
+const router = Router();
 
-const directorController = require("./director.controller"); // Director Controller
-const directorValidator = require("./director.validator"); // Director Validator
+import {
+	addDirector,
+	updateDocumentLinkById,
+	getDirectorDetailsById,
+} from "./director.controller.js"; // Director Controller
 
 // Add Director Information
-router.post("/", directorValidator.addDirector, directorController.addDirector);
+router.post("/", addDirector);
 
 // Upload Attached Documents to Director
-router.patch(
-  "/:id",
-  directorValidator.updateDocumentLinkById,
-  directorController.updateDocumentLinkById
-);
-
-
+router.patch("/:id", updateDocumentLinkById);
 
 // Get Director Information
-router.put("/:id", directorController.getDirectorDetailsById);
+router.put("/:id", getDirectorDetailsById);
 
-module.exports = router;
+export default router;
