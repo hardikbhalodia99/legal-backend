@@ -1,29 +1,30 @@
-import { SQS } from 'aws-sdk';
-const sqs = new SQS({region: 'ap-south-1'});
+const AWS = require("aws-sdk");
+const sqs = new AWS.SQS({ region: "ap-south-1" });
+const { processRazorpayEventsDirect } = require("./src/modules/process-razorpay-events-direct");
 
-export async function handler(event, context) {
-    try{
-        context.callbackWaitsForEmptyEventLoop = false;
+async function handler(event, context) {
+	try {
+		context.callbackWaitsForEmptyEventLoop = false;
 
-        for (let message of event.Records) {
-            console.log(`Handling message: ${message.messageId}`);
-            var params = {
-                QueueUrl: `https://sqs.ap-south-1.amazonaws.com/865096565437/legal-${process.env.APP_ENV}.fifo`,
-                ReceiptHandle: message.receiptHandle
-            };
-            console.log("raw body",message.body);
-            console.log("attributes",message.messageAttributes)
+		for (let message of event.Records) {
+			console.log(`Handling message: ${message.messageId}`);
+			var params = {
+				QueueUrl: `https://sqs.ap-south-1.amazonaws.com/865096565437/legal-${process.env.APP_ENV}.fifo`,
+				ReceiptHandle: message.receiptHandle,
+			};
+			console.log("raw body", message.body);
+			console.log("attributes", message.messageAttributes);
 
-
-            switch(message.body){
-              case "PROCESS_RAZORPAY_EVENTS_DIRECT" : processRazorpayEventsDirect(message.messageAttributes); break;
-              default: console.log("NEW TYPE"); break;
-            }
-            const res = await sqs.deleteMessage(params).promise();
-            console.log("deleted message",res);
-        }    
-    }
-    catch(err){
-        console.log("SQS Err",err);
-    }
+			switch (message.body) {
+				case "PROCESS_RAZORPAY_EVENTS_DIRECT": await processRazorpayEventsDirect(message.messageAttributes); break;
+				default: console.log("NEW TYPE"); break;
+			}
+			const res = await sqs.deleteMessage(params).promise();
+			console.log("deleted message", res);
+		}
+	} catch (err) {
+		console.log("SQS Err", err);
+	}
 }
+
+module.exports.handler = handler;

@@ -1,7 +1,7 @@
-import NomineesModel from "../../../../models/mongo/nominees.js";
+const NomineesModel = require("../../../../models/mongo/nominees.js");
 
 // Add New Nominee API
-export async function addNominee(request, response, next) {
+async function addNominee(request, response, next) {
   try {
     // Get All Request Data
     const {
@@ -70,7 +70,7 @@ export async function addNominee(request, response, next) {
 }
 
 // Upload Document and update Link in Document Details By Id
-export async function updateDocumentLinkById(request, response, next) {
+async function updateDocumentLinkById(request, response, next) {
   try {
     // Get All Request Data
     const { documentFor, source } = request.body;
@@ -152,7 +152,7 @@ export async function updateDocumentLinkById(request, response, next) {
 }
 
 // Update Nominee Details By Id
-export async function updateNomineeDetailsById(request, response, next) {
+async function updateNomineeDetailsById(request, response, next) {
   try {
     // Get All Request Data
     const {
@@ -244,7 +244,7 @@ export async function updateNomineeDetailsById(request, response, next) {
 }
 
 // Get Nominee Details By Id
-export async function getNomineeDetailsById(request, response, next) {
+async function getNomineeDetailsById(request, response, next) {
   try {
     const { id } = request.params;
 
@@ -271,3 +271,8 @@ export async function getNomineeDetailsById(request, response, next) {
     });
   }
 }
+
+module.exports.addNominee = addNominee;
+module.exports.updateDocumentLinkById = updateDocumentLinkById;
+module.exports.updateNomineeDetailsById = updateNomineeDetailsById;
+module.exports.getNomineeDetailsById  = getNomineeDetailsById;

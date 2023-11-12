@@ -1,7 +1,7 @@
-import { generateRandomString } from "../../index.js";
-import { getLegalDB, getOrderModel } from "./utils.js";
+const { generateRandomString } = require("../..")
+const { getLegalDB, getOrderModel } = require("./utils")
 
-export async function createOrder({order_amount,quantity,reference_id,client_id,organization_id,product_id}){
+async function createOrder({order_amount,quantity,reference_id,client_id,organization_id,product_id}){
   try{
     const sequelize = await getLegalDB()
     const OrderModel = await getOrderModel(sequelize)
@@ -22,3 +22,5 @@ export async function createOrder({order_amount,quantity,reference_id,client_id,
     console.error("Server Error in sql/order at createOrder ==> Error : ",error);
   }
 }
+
+module.exports.createOrder = createOrder;

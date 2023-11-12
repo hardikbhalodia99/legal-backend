@@ -1,14 +1,16 @@
-import Razorpay from "razorpay"
-import { createPayment } from "../../../../utils/sql/legal/index.js"
-import { getMongoOrgByOrgId } from "../../../../utils/mongo/index.js"
-import { generateRandomString } from "../../../../utils/index.js"
+const Razorpay = require("razorpay")
+const { createPayment } = require("../../../../utils/sql/legal/index.js")
+const { getMongoOrgByOrgId } = require("../../../../utils/mongo/index.js")
+const { generateRandomString } = require("../../../../utils/index.js")
 
 
-export async function createPaymentOrder(req,res){
+async function createPaymentOrder(req,res){
   try{
     const {amount,name,email,organization_id} = req.body
+    console.log("%c 🍺 req.body", "color:#3f7cff", req.body);
 
     const mongoOrganization = await getMongoOrgByOrgId({ organization_id : organization_id})
+    console.log("%c 🥛 mongoOrganization", "color:#2eafb0", mongoOrganization);
 
     if(!mongoOrganization){
       return res.status(400).set({"Access-Control-Allow-Origin" : "*"}).json({
@@ -25,6 +27,7 @@ export async function createPaymentOrder(req,res){
     })
 
     const receiptId = "RPT"+ generateRandomString() 
+    console.log("%c 🍰 receiptId", "color:#ffdd4d", receiptId);
 
     let notes = {}
     if(name) notes['name'] = name
@@ -36,6 +39,7 @@ export async function createPaymentOrder(req,res){
         "receipt": receiptId,
         "notes": notes
     })
+    console.log("%c 🍯 order", "color:#ed9ec7", order);
     const orderId = order.id;
     
     await createPayment({
@@ -56,3 +60,5 @@ export async function createPaymentOrder(req,res){
     })
   }
 }
+
+module.exports.createPaymentOrder = createPaymentOrder

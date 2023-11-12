@@ -1,8 +1,8 @@
-import OrganizationModel from "../../models/mongo/organization.js"
+const OrganizationModel = require("../../models/mongo/organization.js");
+const { connectToMongooseDatabase } = require("./utils.js");
 
-import { connectToMongooseDatabase } from "./utils.js";
 
-export async function createMongoOrganization({organization_id,razorpay_api_key,razorpay_api_key_secret}){
+async function createMongoOrganization({organization_id,razorpay_api_key,razorpay_api_key_secret}){
   try{
     const mongoConnection  = await connectToMongooseDatabase()
     const mongoOrganization = await OrganizationModel.create({
@@ -18,7 +18,7 @@ export async function createMongoOrganization({organization_id,razorpay_api_key,
   }
 }
 
-export async function getMongoOrgByOrgId({organization_id}){
+async function getMongoOrgByOrgId({organization_id}){
   try{
     const mongoConnection  = await connectToMongooseDatabase()
     const mongoOrganization = await OrganizationModel.findOne({
@@ -31,3 +31,6 @@ export async function getMongoOrgByOrgId({organization_id}){
     console.error("Server Error in mongo/organization at getMongoOrgByOrgId ==> Error : ",error);
   }
 }
+
+module.exports.createMongoOrganization = createMongoOrganization;
+module.exports.getMongoOrgByOrgId = getMongoOrgByOrgId;

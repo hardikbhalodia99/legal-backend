@@ -5,6 +5,8 @@ provider:
   runtime: nodejs16.x
   stage: ${opt:stage, 'staging'}
   region: ap-south-1
+  iamManagedPolicies:
+  - 'arn:aws:iam::aws:policy/AmazonSQSFullAccess'
   iamRoleStatements:
   - Effect: Allow
     Action:

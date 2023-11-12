@@ -1,4 +1,4 @@
-import * as mongoose from "mongoose";
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema
 
 const NomineeSchema = new Schema(
@@ -34,4 +34,4 @@ const NomineeSchema = new Schema(
 	}
 );
 
-export default mongoose.model("Nominee", NomineeSchema);
+module.exports = mongoose.model("Nominee", NomineeSchema);

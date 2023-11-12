@@ -1,13 +1,12 @@
-import { Sequelize } from "sequelize";
+const { Sequelize } = require("sequelize");
 
-import ClientModel from "../../../models/sql/legal/client.js";
-import EmployeeModel from "../../../models/sql/legal/employee.js";
-import InvoiceModel from "../../../models/sql/legal/invoice.js";
-import OrderModel from "../../../models/sql/legal/order.js";
-import ProductModel from "../../../models/sql/legal/product.js";
-import OrganizationModel from "../../../models/sql/legal/organization.js";
-import PaymentModel from "../../../models/sql/legal/payment.js";
-
+const ClientModel = require("../../../models/sql/legal/client.js");
+const EmployeeModel = require("../../../models/sql/legal/employee.js");
+const InvoiceModel = require("../../../models/sql/legal/invoice.js");
+const OrderModel = require("../../../models/sql/legal/order.js");
+const ProductModel = require("../../../models/sql/legal/product.js");
+const OrganizationModel = require("../../../models/sql/legal/organization.js");
+const PaymentModel = require("../../../models/sql/legal/payment.js");
 
 async function getSequelize() {
 	const sequelize = new Sequelize(
@@ -39,7 +38,7 @@ let cachedDB = null;
 /**
  * Reference : https://sequelize.org/docs/v6/other-topics/aws-lambda/
  */
-export async function getLegalDB() {
+async function getLegalDB() {
 	if (cachedDB) {
 		console.log("Cached sql connection");
 		cachedDB.connectionManager.initPools();
@@ -57,45 +56,54 @@ export async function getLegalDB() {
 }
 
 
-export async function getClientModel(sequelize) {
+async function getClientModel(sequelize) {
 	const Clients = ClientModel(sequelize, Sequelize);
 	await Clients.sync({ alter: false, force: false });
 	return Clients;
 }
 
-export async function getOrganizationModel(sequelize) {
+async function getOrganizationModel(sequelize) {
 	const Organization = OrganizationModel(sequelize, Sequelize);
 	await Organization.sync({ alter: false, force: false });
 	return Organization;
 }
 
-export async function getProductModel(sequelize) {
+async function getProductModel(sequelize) {
 	const Product = ProductModel(sequelize, Sequelize);
-	await Product.sync({ alter: false, force: false });
+	await Product.sync({ alter: true, force: false });
 	return Product;
 }
 
-export async function getEmployeeModel(sequelize) {
+async function getEmployeeModel(sequelize) {
 	const Employee = EmployeeModel(sequelize, Sequelize);
 	await Employee.sync({ alter: false, force: false });
 	return Employee;
 }
 
-export async function getInvoiceModel(sequelize) {
+async function getInvoiceModel(sequelize) {
 	const Invoice = InvoiceModel(sequelize, Sequelize);
 	await Invoice.sync({ alter: false, force: false });
 	return Invoice;
 }
 
-export async function getOrderModel(sequelize) {
+async function getOrderModel(sequelize) {
 	const Order = OrderModel(sequelize, Sequelize);
 	await Order.sync({ alter: false, force: false });
 	return Order;
 }
 
-export async function getPaymentModel(sequelize) {
+async function getPaymentModel(sequelize) {
 	const Payment = PaymentModel(sequelize, Sequelize);
 	await Payment.sync({ alter: false, force: false });
 	return Payment;
 }
 
+
+module.exports.getLegalDB = getLegalDB
+module.exports.getClientModel = getClientModel
+module.exports.getOrganizationModel = getOrganizationModel
+module.exports.getProductModel = getProductModel
+module.exports.getEmployeeModel = getEmployeeModel
+module.exports.getInvoiceModel = getInvoiceModel
+module.exports.getOrderModel = getOrderModel
+module.exports.getPaymentModel = getPaymentModel

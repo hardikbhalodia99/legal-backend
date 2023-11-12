@@ -1,11 +1,11 @@
-import { Router } from "express";
+const { Router }  = require("express")
 const router = Router();
-import { createPaymentOrder } from "./order.js";
-import { getPaymentStatus } from "./status.js";
-import { createPaymentSuccess } from "./success.js";
+const { createPaymentOrder }  = require("./order.js")
+const { getPaymentStatus }  = require("./status.js")
+const { createPaymentSuccess }  = require("./success.js")
 
 router.post("/create-order", createPaymentOrder);
 router.post("/status", getPaymentStatus);
 router.post("/success", createPaymentSuccess);
 
-export default router;
+module.exports = router;

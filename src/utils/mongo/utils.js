@@ -1,8 +1,8 @@
-import { connect } from "mongoose";
-import { MONGO_DB_URI } from "../constants/index.js";
+const { connect } = require("mongoose");
+const { MONGO_DB_URI } = require("../constants/index.js");
 
 let cachedMongooseDb = null;
-export async function connectToMongooseDatabase(){
+async function connectToMongooseDatabase(){
   try{
 
     if (cachedMongooseDb) {
@@ -18,3 +18,4 @@ export async function connectToMongooseDatabase(){
   }
 }
 
+module.exports.connectToMongooseDatabase = connectToMongooseDatabase;

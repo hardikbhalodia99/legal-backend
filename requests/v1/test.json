@@ -1,9 +1,0 @@
-{
-  "httpMethod": "GET",
-  "path": "/v1/test",
-  "headers": {
-    "Content-Type": "application/json"
-  },
-  "pathParameters": null,
-  "stageVariables": null
-}

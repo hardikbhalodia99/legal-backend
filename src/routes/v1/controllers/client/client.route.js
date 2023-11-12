@@ -1,13 +1,13 @@
-import { Router } from "express";
+const { Router } = require("express");
 const router = Router();
 
-import {
+const {
 	addCompanyDetails,
 	updateOfficeDetailsById,
 	updateDirectorDetailsById,
 	updateNomineeDetailsById,
 	getClientDetailsById,
-} from "./client.controller.js"; // Client Controller
+} = require("./index"); // Client Controller
 
 // Add Company Details
 router.post("/", addCompanyDetails);
@@ -24,4 +24,4 @@ router.patch("/nominee/:id", updateNomineeDetailsById);
 // Get Client Information
 router.put("/:id", getClientDetailsById);
 
-export default router;
+module.exports = router;

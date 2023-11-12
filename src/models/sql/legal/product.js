@@ -1,4 +1,4 @@
-export default (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
 	const Product = sequelize.define(
 		"product",
 		{
@@ -21,6 +21,10 @@ export default (sequelize, DataTypes) => {
 			},
 			product_slug : {
 				type : DataTypes.STRING
+			},
+			is_deleted : {
+				type : DataTypes.BOOLEAN,
+				defaultValue : false
 			}
 		},
 		{  

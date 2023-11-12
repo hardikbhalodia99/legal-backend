@@ -1,11 +1,11 @@
-import { Router } from "express";
+const { Router } = require("express");
 const router = Router();
 
-import {
+const {
 	addDirector,
 	updateDocumentLinkById,
 	getDirectorDetailsById,
-} from "./director.controller.js"; // Director Controller
+} = require("./director.controller.js"); // Director Controller
 
 // Add Director Information
 router.post("/", addDirector);
@@ -16,4 +16,4 @@ router.patch("/:id", updateDocumentLinkById);
 // Get Director Information
 router.put("/:id", getDirectorDetailsById);
 
-export default router;
+module.exports = router;

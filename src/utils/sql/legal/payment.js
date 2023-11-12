@@ -1,6 +1,6 @@
-import { getLegalDB, getPaymentModel } from "./utils.js";
+const { getLegalDB, getPaymentModel } = require("./utils");
 
-export async function createPayment({legal_payment_id,external_order_id,payment_provider,external_payment_id}){
+async function createPayment({legal_payment_id,external_order_id,payment_provider,external_payment_id}){
   try {
     const sequelize = await getLegalDB();
     const PaymentModel = await getPaymentModel(sequelize);
@@ -18,9 +18,9 @@ export async function createPayment({legal_payment_id,external_order_id,payment_
   }
 }
 
-export async function getPayment({external_order_id,external_payment_id}){
+async function getPayment({external_order_id,external_payment_id}){
   try{
-    const sequelize = await getClimesDB();
+    const sequelize = await getLegalDB();
     const PaymentModel = await getPaymentModel(sequelize);
 
     
@@ -37,8 +37,8 @@ export async function getPayment({external_order_id,external_payment_id}){
   }
 }
 
-export async function confirmPayment({external_order_id,external_payment_id}){ 
-  let sequelize = await getClimesDB();
+async function confirmPayment({external_order_id,external_payment_id}){ 
+  let sequelize = await getLegalDB();
   try {
       const PaymentModel = await getPaymentModel(sequelize);
       await PaymentModel.update(
@@ -58,8 +58,8 @@ export async function confirmPayment({external_order_id,external_payment_id}){
   }
 }
 
-export async function updatePayment({legal_payment_id,external_order_id,external_payment_id,payment_signature}){
-  let sequelize = await getClimesDB();
+async function updatePayment({legal_payment_id,external_order_id,external_payment_id,payment_signature}){
+  let sequelize = await getLegalDB();
   try {
       const PaymentModel = await getPaymentModel(sequelize);
       const payment = await PaymentModel.findOne({ where : {payment_id : legal_payment_id,}});
@@ -99,3 +99,7 @@ export async function updatePayment({legal_payment_id,external_order_id,external
   }
 }
 
+module.exports.createPayment = createPayment;
+module.exports.getPayment = getPayment;
+module.exports.confirmPayment = confirmPayment;
+module.exports.updatePayment = updatePayment;

@@ -1,7 +1,7 @@
-import { generateRandomString } from "../../index.js"
-import { getLegalDB, getOrganizationModel } from "./utils.js"
+const { generateRandomString } = require("../..")
+const { getLegalDB, getOrganizationModel } = require("./utils")
 
-export async function getOrganizationByOrganizationId({organization_id}){
+async function getOrganizationByOrganizationId({organization_id}){
   try{
     const sequelize = await getLegalDB()
     const OrganizationModel = await getOrganizationModel(sequelize)
@@ -20,7 +20,7 @@ export async function getOrganizationByOrganizationId({organization_id}){
   }
 }
 
-export async function createOrganization({organization_name}){
+async function createOrganization({organization_name}){
   try{
     const sequelize = await getLegalDB()
     const OrganizationModel = await getOrganizationModel(sequelize)
@@ -38,3 +38,5 @@ export async function createOrganization({organization_name}){
   }
 }
 
+module.exports.createOrganization = createOrganization
+module.exports.getOrganizationByOrganizationId = getOrganizationByOrganizationId

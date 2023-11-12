@@ -1,7 +1,7 @@
-import Client from "../../../../models/mongo/client.js";
+const Client = require("../../../../models/mongo/client.js")
 
 // Add New Client API
-export async function addCompanyDetails(request, response, next) {
+async function addCompanyDetails(request, response, next) {
   try {
     // Get All Request Data
     const {
@@ -77,7 +77,7 @@ export async function addCompanyDetails(request, response, next) {
 }
 
 // Add Office Details to Client Id
-export async function updateOfficeDetailsById(request, response, next) {
+async function updateOfficeDetailsById(request, response, next) {
   try {
     // Get All Request Data
     const { owner_name, address, city, state, country, pin_code } =
@@ -147,7 +147,7 @@ export async function updateOfficeDetailsById(request, response, next) {
 }
 
 // Add Director Details to Client Id
-export async function updateDirectorDetailsById(request, response, next) {
+async function updateDirectorDetailsById(request, response, next) {
   try {
     // Get All Request Data
     const { name, director_id } = request.body;
@@ -208,7 +208,7 @@ export async function updateDirectorDetailsById(request, response, next) {
 }
 
 // Add Nominee Details to Client Id
-export async function updateNomineeDetailsById(request, response, next) {
+async function updateNomineeDetailsById(request, response, next) {
   try {
     // Get All Request Data
     const { name, nominee_id } = request.body;
@@ -269,7 +269,7 @@ export async function updateNomineeDetailsById(request, response, next) {
 }
 
 // Get Client Details By Id
-export async function getClientDetailsById(request, response, next) {
+async function getClientDetailsById(request, response, next) {
   try {
     const { id } = request.params;
 
@@ -296,3 +296,9 @@ export async function getClientDetailsById(request, response, next) {
     });
   }
 }
+
+module.exports.addCompanyDetails = addCompanyDetails;
+module.exports.updateOfficeDetailsById = updateOfficeDetailsById;
+module.exports.updateDirectorDetailsById = updateDirectorDetailsById;
+module.exports.updateNomineeDetailsById = updateNomineeDetailsById;
+module.exports.getClientDetailsById = getClientDetailsById;

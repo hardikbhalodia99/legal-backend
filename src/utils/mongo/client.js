@@ -1,9 +1,10 @@
-import ClientModel from "../../models/mongo/client.js"
-import { connectToMongooseDatabase } from "./utils.js";
+const { connectToMongooseDatabase } = require("./utils");
+const ClientModel = require("../../models/mongo/client.js")
 
-export async function createMongoClient({client_id}){
+
+async function createMongoClient({client_id}){
   try{
-    const mongoConnection  = await connectToMongooseDatabase()
+    const mongoConnection  = await connectToMongooseDatabase  ()
     const mongoClient = await ClientModel.create({
       client_id : client_id
     })
@@ -14,3 +15,4 @@ export async function createMongoClient({client_id}){
   }
 }
 
+module.exports.createMongoClient = createMongoClient;

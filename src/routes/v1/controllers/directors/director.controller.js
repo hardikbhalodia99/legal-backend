@@ -1,7 +1,7 @@
-import DirectorsModel from "../../../../models/mongo/directors.js";
+const DirectorsModel = require("../../../../models/mongo/directors.js");
 
 // Add New Director API
-export async function addDirector(request, response, next) {
+async function addDirector(request, response, next) {
   try {
     // Get All Request Data
     const {
@@ -94,7 +94,7 @@ export async function addDirector(request, response, next) {
 }
 
 // Upload Document and update Link in Document Details By Id
-export async function updateDocumentLinkById(request, response, next) {
+async function updateDocumentLinkById(request, response, next) {
   try {
     // Get All Request Data
     const { documentFor, source } = request.body;
@@ -176,7 +176,7 @@ export async function updateDocumentLinkById(request, response, next) {
 }
 
 // Update Director Details By Id
-export async function updateDirectorDetailsById(request, response, next) {
+async function updateDirectorDetailsById(request, response, next) {
   try {
     // Get All Request Data
     const {
@@ -276,7 +276,7 @@ export async function updateDirectorDetailsById(request, response, next) {
 }
 
 // Get Director Details By Id
-export async function getDirectorDetailsById(request, response, next) {
+async function getDirectorDetailsById(request, response, next) {
   try {
     const { id } = request.params;
 
@@ -303,3 +303,8 @@ export async function getDirectorDetailsById(request, response, next) {
     });
   }
 }
+
+module.exports.addDirector = addDirector;
+module.exports.updateDocumentLinkById = updateDocumentLinkById;
+module.exports.updateDirectorDetailsById = updateDirectorDetailsById;
+module.exports.getDirectorDetailsById = getDirectorDetailsById;

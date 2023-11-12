@@ -1,7 +1,7 @@
-import { getUserAccount } from './appwrite.js';
-import { setCookie, getAuthUserFallbackCookie, getAuthUserTokensCookieName, getAuthUserCookieName, cookieConfig } from './cookies.js';
+const { getUserAccount } = require('./appwrite.js');
+const { setCookie, getAuthUserFallbackCookie, getAuthUserTokensCookieName, getAuthUserCookieName, cookieConfig } = require('./cookies');
 
-export const setCookieValues = async (token,fallbackToken,req, res) => {
+const setCookieValues = async (token,fallbackToken,req, res) => {
     setCookie({
         name: getAuthUserFallbackCookie(),
         // Note: any change to cookie data structure needs to be
@@ -35,7 +35,7 @@ export const setCookieValues = async (token,fallbackToken,req, res) => {
     return user;
   }
   
-export const setAuthCookies = async (req, res) => {
+const setAuthCookies = async (req, res) => {
   if (!(req.headers && req.headers.authorization)) {
     throw new Error('The request is missing an Authorization header value')
   }
@@ -49,3 +49,6 @@ export const setAuthCookies = async (req, res) => {
     user
   }
 }
+
+module.exports.setAuthCookies = setAuthCookies
+module.exports.setCookieValues = setCookieValues;

@@ -1,20 +1,19 @@
-import { getProductByOrganizationIdAndSlug } from "../../../../utils/sql/legal/product.js";
+const { getProductByOrganizationIdAndSlug } = require("../../../../utils/sql/legal/product.js")
 
-
-export async function getOrganizationProductDetailsById(request, response, next){
+async function getOrganizationProductDetailsById(request, response, next){
   try {
-    const { organization_id,product_slug } = request.params;
+    const { organization_id,slug } = request.params;
 
-    if(!organization_id || !product_slug){
+    if(!organization_id || !slug){
       return response.status(400).set({"Access-Control-Allow-Origin" : "*"}).json({
-        message : "Please send organization_id  and product_slug in your request"
+        message : "Please send organization_id  and slug in your request"
       })
     }
 
     let responseData
 
 
-    if(product_slug === "pvt-ltd"){
+    if(slug === "pvt-ltd"){
       responseData = await getPvtLtdAllProductDetails({organization_id : organization_id})
     }
 
@@ -70,13 +69,14 @@ async function getPvtLtdAllProductDetails({organization_id}){
 
   const additionalDirectorProduct = await getProductByOrganizationIdAndSlug({
     organization_id : organization_id,
-    product_slug : "pvt-director"
+    product_slug : "pvt-directors"
   })
 
   if(additionalDirectorProduct) {
-    responseData['pvt-director'] = additionalDirectorProduct
+    responseData['pvt-directors'] = additionalDirectorProduct
   }
 
   return responseData
 }
 
+module.exports.getOrganizationProductDetailsById = getOrganizationProductDetailsById;

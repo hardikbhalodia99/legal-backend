@@ -1,6 +1,6 @@
-import axios from 'axios';
-import { Client, Account } from 'node-appwrite';
-import { getAuthUserTokensCookieName, setCookie, cookieConfig } from './cookies.js';
+const axios = require('axios');
+const { Client, Account } = require('node-appwrite');
+const { getAuthUserTokensCookieName, setCookie, cookieConfig } = require('./cookies');
 
 const endpoint = process.env.APPWRITE_ENDPOINT;
 const project = process.env.APPWRITE_PROJECT_ID;
@@ -18,7 +18,7 @@ const getHeaders = (fallback) => {
   };
 };
 
-export const getJWT = async (fallback) => {
+const getJWT = async (fallback) => {
   const headers = getHeaders(fallback);
   const jwtRes = await axios.post(`${endpoint}/account/jwt`, {}, { headers: headers });
   const refreshedJwt = jwtRes.data.jwt;
@@ -32,7 +32,7 @@ const getUser = async (fallback) => {
   return user;
 };
 
-export const getUserAccount = async (jwt, fallback, req, res) => {
+const getUserAccount = async (jwt, fallback, req, res) => {
   const client = new Client();
   const account = new Account(client);
   client.setEndpoint(endpoint).setProject(project);
@@ -60,3 +60,5 @@ export const getUserAccount = async (jwt, fallback, req, res) => {
   }
 };
 
+module.exports.getUserAccount = getUserAccount;
+module.exports.getJWT = getJWT;

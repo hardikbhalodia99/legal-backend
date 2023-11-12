@@ -1,8 +1,8 @@
-import { generateRandomString } from "../../index.js"
-import { getProductModel } from "./utils.js"
-import { getLegalDB } from "./utils.js"
+const { generateRandomString } = require("../..")
+const { getLegalDB, getProductModel } = require("./utils")
 
-export async function getProductByOrganizationIdAndSlug({organization_id,product_slug}){
+
+async function getProductByOrganizationIdAndSlug({organization_id,product_slug}){
   try{
     const sequelize = await getLegalDB()
     const ProductsModel = await getProductModel(sequelize)
@@ -22,7 +22,7 @@ export async function getProductByOrganizationIdAndSlug({organization_id,product
   }
 }
 
-export async function createProduct({organization_id,product_name,product_slug,product_discount,product_price}){
+async function createProduct({organization_id,product_name,product_slug,product_discount,product_price}){
   try{
     const sequelize = await getLegalDB()
     const ProductsModel = await getProductModel(sequelize)
@@ -44,3 +44,7 @@ export async function createProduct({organization_id,product_name,product_slug,p
     console.error("Server Error in sql/legal/product in createProduct ==> Error : ",error)
   }
 }
+
+
+module.exports.createProduct = createProduct
+module.exports.getProductByOrganizationIdAndSlug = getProductByOrganizationIdAndSlug

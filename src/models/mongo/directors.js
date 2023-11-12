@@ -1,4 +1,4 @@
-import * as mongoose from "mongoose";
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema
 
 const DirectorSchema = new Schema(
@@ -37,4 +37,4 @@ const DirectorSchema = new Schema(
 	}
 );
 
-export default mongoose.model("Director", DirectorSchema);
+module.exports = mongoose.model("Director", DirectorSchema);

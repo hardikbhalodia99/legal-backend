@@ -1,4 +1,4 @@
-import Cookies from 'cookies';
+const Cookies = require('cookies');
 const COOKIE_NAME = process.env.APP_ENV === 'prod' ? 'legal-user-dashboard' : 'legal-user-dashboard-staging';
 
 const ONE_WEEK_IN_MS = 7 * 60 * 60 * 24 * 1000;
@@ -6,7 +6,7 @@ const TWO_WEEKS_IN_MS = 14 * 60 * 60 * 24 * 1000;
 const ONE_YEAR_IN_MS = 365 * 60 * 60 * 24 * 1000;
 const KEYS = ['gfhfghdfghfdghfghdfg'];
 
-export const cookieConfig = {
+const cookieConfig = {
   keys: KEYS,
   httpOnly: true,
   domain: process.env.NODE_ENV === 'development' ? '' : '',
@@ -28,7 +28,7 @@ const createCookieMgr = (CookieManagerRequest) => {
   return cookies;
 };
 
-export const getCookie = (name, CookieManagerRequest) => {
+const getCookie = (name, CookieManagerRequest) => {
   if (CookieManagerRequest.signed && !CookieManagerRequest.keys) {
     throw new Error('The "keys" value must be provided when using signed cookies.');
   }
@@ -39,7 +39,7 @@ export const getCookie = (name, CookieManagerRequest) => {
   return cookieVal ? decodeBase64(cookieVal).toString() : undefined;
 };
 
-export const setCookie = (SetCookieRequest) => {
+const setCookie = (SetCookieRequest) => {
   const { Options, req, res, cookieVal, name } = SetCookieRequest;
   if (Options.signed && !Options.keys) {
     throw new Error('The "keys" value must be provided when using signed cookies.');
@@ -69,22 +69,22 @@ export const setCookie = (SetCookieRequest) => {
   });
 };
 
-export const getAuthUserFallbackCookie = () => {
+const getAuthUserFallbackCookie = () => {
   const baseAuthCookieName = COOKIE_NAME;
   return `${baseAuthCookieName}.AuthUserFallback`;
 };
 
-export const getAuthUserTokensCookieName = () => {
+const getAuthUserTokensCookieName = () => {
   const baseAuthCookieName = COOKIE_NAME;
   return `${baseAuthCookieName}.AuthUserTokens`;
 };
 
-export const getAuthUserCookieName = () => {
+const getAuthUserCookieName = () => {
   const baseAuthCookieName = COOKIE_NAME;
   return `${baseAuthCookieName}.AuthUser`;
 };
 
-export const deleteCookie = (name, req, res, Options) => {
+const deleteCookie = (name, req, res, Options) => {
   // "If the value is omitted, an outbound header with an expired
   // date is used to delete the cookie."
   // https://github.com/pillarjs/cookies#cookiesset-name--value---options--
@@ -102,12 +102,18 @@ const decodeBase64 = (string) => {
   return JSON.parse(body)
 }
 
-
 const encodeBase64 = (obj) => {
   const str = JSON.stringify(obj)
   return Buffer.from(str).toString('base64')
 }
 
+module.exports.cookieConfig = cookieConfig
+module.exports.getCookie = getCookie
+module.exports.setCookie = setCookie
+module.exports.getAuthUserFallbackCookie = getAuthUserFallbackCookie
+module.exports.getAuthUserTokensCookieName = getAuthUserTokensCookieName
+module.exports.getAuthUserCookieName = getAuthUserCookieName;
+module.exports.deleteCookie = deleteCookie;
 
 
 

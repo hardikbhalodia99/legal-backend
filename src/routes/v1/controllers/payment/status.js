@@ -1,11 +1,13 @@
-import { getMongoOrgByOrgId } from "../../../../utils/mongo/index.js";
-import { getPayment } from "../../../../utils/sql/legal/index.js";
+const { getMongoOrgByOrgId } = require("../../../../utils/mongo/index.js")
+const { getPayment } = require("../../../../utils/sql/legal/index.js")
 
-export async function getPaymentStatus(req,res){
+async function getPaymentStatus(req,res){
   try{
     const {organization_id,razorpay_order_id,razorpay_payment_id} = req.body;
+    console.log("%c 🍊 req.body", "color:#33a5ff", req.body);
 
     const mongoOrganization = await getMongoOrgByOrgId({ organization_id : organization_id})
+    console.log("%c 🍡 mongoOrganization", "color:#ffdd4d", mongoOrganization);
 
     if(!mongoOrganization){
       return res.status(400).set({"Access-Control-Allow-Origin" : "*"}).json({
@@ -18,6 +20,7 @@ export async function getPaymentStatus(req,res){
       external_payment_id : razorpay_payment_id
     });
 
+    console.log("%c 🍢 payment", "color:#ed9ec7", payment);
     if(payment){
       return res.status(200).set({"Access-Control-Allow-Origin" : "*"}).json({
         payment_received : payment.payment_status === "PAID_CONFIRMED" ? true : false
@@ -35,3 +38,5 @@ export async function getPaymentStatus(req,res){
     })
   }
 }
+
+module.exports.getPaymentStatus = getPaymentStatus;

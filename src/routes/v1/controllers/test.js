@@ -1,18 +1,29 @@
-import { createMongoOrganization } from "../../../utils/mongo/index.js"
-import { createOrganization, createProduct } from "../../../utils/sql/legal/index.js"
+const { addToSQSQueue } = require("../../../utils/aws/sqs.js")
+const { createMongoOrganization } = require("../../../utils/mongo/index.js")
+const { createOrganization, createProduct } = require("../../../utils/sql/legal/index.js")
 
-export async function testFunction (req,res){
+async function testFunction (req,res){
   try{
 
+    let eventsData = {
+      rzpData : {
+          StringValue: JSON.stringify({"hello" : "hello"}),
+          DataType: 'String'
+      }
+  }
+  await addToSQSQueue({
+      data : eventsData,
+      type: "PROCESS_RAZORPAY_EVENTS_DIRECT"
+  });
     // const organization = await createOrganization({
     //   organization_name : "Legal Team"
     // })
 
-    const mongoOrganization = await createMongoOrganization({
-      organization_id : "ORG4uJNgdZPKnyU",
-      razorpay_api_key : "rzp_test_P3bOXbO6IRXbwk",
-      razorpay_api_key_secret : "C9IVIMBEQBqhIL2kg6QS0dZf"
-    })
+    // const mongoOrganization = await createMongoOrganization({
+    //   organization_id : "ORG4uJNgdZPKnyU",
+    //   razorpay_api_key : "rzp_test_P3bOXbO6IRXbwk",
+    //   razorpay_api_key_secret : "C9IVIMBEQBqhIL2kg6QS0dZf"
+    // })
 
     // const pvtProduct = await createProduct({
     //   organization_id : organization.organization_id,
@@ -52,9 +63,15 @@ export async function testFunction (req,res){
     //   product_price : 944,
     //   product_discount : 0,
     //   product_slug : "pvt-directors"
-    // })    
+    // })  
+    
+    return res.status(201).set({"Access-Control-Allow-Origin": "*"}).json({
+      success : true,
+    })
 
   }catch(error){
     console.log(error)
   }
 }
+
+module.exports.testFunction = testFunction

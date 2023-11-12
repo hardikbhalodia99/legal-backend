@@ -1,7 +1,7 @@
-import { validateWebhookSignature } from "razorpay";
-import { addToSQSQueue } from "./src/utils/aws/sqs.js";
+const { validateWebhookSignature } =require("razorpay")
+const { addToSQSQueue } =require("./src/utils/aws/sqs.js");
 
-export async function handler (event, context, callback) {
+async function handler (event, context, callback) {
   try {
     console.log("event",event);
     const signature = event.headers['x-razorpay-signature'];
@@ -83,3 +83,5 @@ export async function handler (event, context, callback) {
   };
   return data; 
 }
+
+module.exports.handler = handler;

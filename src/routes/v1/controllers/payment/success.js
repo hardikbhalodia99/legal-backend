@@ -1,13 +1,15 @@
-import crypto from 'crypto'
-import { getMongoOrgByOrgId } from '../../../../utils/mongo/index.js';
-import Razorpay from "razorpay"
-import { updatePayment } from '../../../../utils/sql/legal/index.js';
+const crypto = require('crypto')
+const { getMongoOrgByOrgId } = require('../../../../utils/mongo/index.js')
+const Razorpay = require("razorpay")
+const { updatePayment } = require('../../../../utils/sql/legal/index.js')
 
-export async function createPaymentSuccess(req,res){
+async function createPaymentSuccess(req,res){
   try{
     const {organization_id,razorpay_order_id,razorpay_payment_id,razorpay_signature} = req.body;
+    console.log("%c 🌰 req.body", "color:#e41a6a", req.body);
 
     const mongoOrganization = await getMongoOrgByOrgId({ organization_id : organization_id})
+    console.log("%c 🍒 mongoOrganization", "color:#ed9ec7", mongoOrganization);
 
     if(!mongoOrganization){
       return res.status(400).set({"Access-Control-Allow-Origin" : "*"}).json({
@@ -23,6 +25,8 @@ export async function createPaymentSuccess(req,res){
     const generatedSignature = hmac.digest('hex');
 
 
+    console.log("%c 🍫 generatedSignature", "color:#93c0a4", generatedSignature);
+    console.log("%c 🍪 razorpay_signature", "color:#ffdd4d", razorpay_signature);
     if (generatedSignature == razorpay_signature) {
 
       const razorpayInstance = new Razorpay({
@@ -31,6 +35,7 @@ export async function createPaymentSuccess(req,res){
       })
       console.log("signature verified");
       const order = await razorpayInstance.orders.fetch(razorpay_order_id)
+      console.log("%c 🍅 order", "color:#42b983", order);
       const receiptId = order['receipt'];
       await updatePayment({
         legal_payment_id : receiptId,
@@ -58,3 +63,5 @@ export async function createPaymentSuccess(req,res){
     })
   }
 }
+
+module.exports.createPaymentSuccess= createPaymentSuccess

@@ -1,12 +1,12 @@
-import { Router } from "express";
+const { Router } = require("express");
 const router = Router();
 
-import {
+const {
 	addNominee,
 	updateDocumentLinkById,
 	updateNomineeDetailsById,
 	getNomineeDetailsById,
-} from "./nominee.controller.js"; // Nominee Controller
+} = require("./nominee.controller.js"); // Nominee Controller
 
 // Add Nominee Information
 router.post("/", addNominee);
@@ -24,4 +24,4 @@ router.put(
 // Get Nominee Information
 router.put("/:id", getNomineeDetailsById);
 
-export default router;
+module.exports = router;
