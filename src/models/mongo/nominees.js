@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const Schema = mongoose.Schema
 
 const NomineeSchema = new Schema(
 	{
@@ -15,6 +15,10 @@ const NomineeSchema = new Schema(
 		current_occupation: { type: String },
 		citizenship: { type: Number },
 		nominee_address: { type: String },
+		nominee_city: { type: String },
+		nominee_state: { type: String },
+		nominee_pin_code: { type: String },
+		nominee_country: { type: String },
 		nominee_designation: { type: String },
 		documents: {
 			nominee_image: { type: String },
@@ -30,5 +34,4 @@ const NomineeSchema = new Schema(
 	}
 );
 
-module.exports =
-	mongoose.models.Nominee || mongoose.model("Nominee", NomineeSchema);
+module.exports = mongoose.model("Nominee", NomineeSchema);

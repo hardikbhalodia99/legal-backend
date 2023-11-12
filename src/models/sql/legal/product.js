@@ -21,6 +21,10 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			product_slug : {
 				type : DataTypes.STRING
+			},
+			is_deleted : {
+				type : DataTypes.BOOLEAN,
+				defaultValue : false
 			}
 		},
 		{  

@@ -1,4 +1,5 @@
-const mongoose = require("mongoose")
+const { connect } = require("mongoose");
+const { MONGO_DB_URI } = require("../constants/index.js");
 
 let cachedMongooseDb = null;
 async function connectToMongooseDatabase(){
@@ -9,7 +10,7 @@ async function connectToMongooseDatabase(){
       return cachedMongooseDb;
     }
     console.log("Non cachedMongooseDb")
-    const db = await mongoose.connect(process.env.MONGO_URI);
+    const db = await connect(MONGO_DB_URI);
     cachedMongooseDb = db;
     return db
   }catch(error){

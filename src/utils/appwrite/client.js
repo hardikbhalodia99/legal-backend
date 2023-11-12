@@ -1,4 +1,4 @@
-const { Client, Users, ID } = require('node-appwrite');
+const { Client, Users, ID } = require('node-appwrite')
 
 const endpoint = process.env.APPWRITE_ENDPOINT;
 const project = process.env.APPWRITE_PROJECT_ID;
@@ -17,6 +17,5 @@ async function createAppwriteAccount({name,email,password}){
     console.error('Server Error at appwrite/client in createAppwriteAccount ==> Error : ', error);
   }
 }
-
 
 module.exports.createAppwriteAccount = createAppwriteAccount

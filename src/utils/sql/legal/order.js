@@ -1,5 +1,5 @@
-const { generateRandomString } = require("../..");
-const { getLegalDB, getOrderModel } = require("./utils");
+const { generateRandomString } = require("../..")
+const { getLegalDB, getOrderModel } = require("./utils")
 
 async function createOrder({order_amount,quantity,reference_id,client_id,organization_id,product_id}){
   try{

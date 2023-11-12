@@ -12,14 +12,6 @@ const ClientSchema = new Schema(
 			total_directors: {
 				type: Number,
 			},
-			director_1: { type: String },
-			director_2: { type: String },
-			director_3: { type: String },
-			director_4: { type: String },
-		},
-		nominee_information: {
-			nominee_1: { type: String },
-			nominee_2: { type: String },
 		},
 		company_details: {
 			company_email: { type: String },
@@ -31,11 +23,19 @@ const ClientSchema = new Schema(
 		},
 		office_details: {
 			owner_name: { type: String },
-			office_address: { type: String },
+			address: { type: String },
 			city: { type: String },
 			state: { type: String },
 			country: { type: String },
-			pincode: { type: String },
+			pin_code: { type: String },
+		},
+		status: {
+			type: Number,
+			default: 1,
+		},
+		isDeleted: {
+			type: Boolean,
+			default: false,
 		},
 	},
 	{
@@ -43,5 +43,4 @@ const ClientSchema = new Schema(
 	}
 );
 
-module.exports =
-	mongoose.models.Client || mongoose.model("Client", ClientSchema);
+module.exports = mongoose.model("Client", ClientSchema);

@@ -1,10 +1,10 @@
-const { generateRandomString } = require("../../index")
-const { getLegalDB  } = require("./utils")
+const { generateRandomString } = require("../..")
+const { getLegalDB, getClientModel } = require("./utils")
 
 async function getClientByClientId({client_id}){
   try{
     const sequelize = await getLegalDB()
-    const ClientModel = await getOrganizationModel(sequelize)
+    const ClientModel = await getClientModel(sequelize)
 
     const client = await ClientModel.findOne({
       where : {
@@ -23,7 +23,7 @@ async function getClientByClientId({client_id}){
 async function createSQLClient({client_name,client_email,appwrite_id,organization_id}){
   try{
     const sequelize = await getLegalDB()
-    const ClientModel = await getOrganizationModel(sequelize)
+    const ClientModel = await getClientModel(sequelize)
 
     const client_id = "CLI" + generateRandomString()
 
@@ -41,6 +41,5 @@ async function createSQLClient({client_name,client_email,appwrite_id,organizatio
   }
 }
 
-
-module.exports.createSQLClient = createSQLClient;
-module.exports.getClientByClientId = getClientByClientId;
+module.exports.createSQLClient = createSQLClient
+module.exports.getClientByClientId = getClientByClientId

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const Schema = mongoose.Schema
 
 const DirectorSchema = new Schema(
 	{
@@ -20,6 +20,10 @@ const DirectorSchema = new Schema(
 		duration_of_stay_number: { type: Number },
 		duration_of_stay_type: { type: String },
 		director_address: { type: String },
+		director_city: { type: String },
+		director_state: { type: String },
+		director_pin_code: { type: String },
+		director_country: { type: String },
 		documents: {
 			director_image: { type: String },
 			director_pan: { type: String },
@@ -33,5 +37,4 @@ const DirectorSchema = new Schema(
 	}
 );
 
-module.exports =
-	mongoose.models.Director || mongoose.model("Director", DirectorSchema);
+module.exports = mongoose.model("Director", DirectorSchema);

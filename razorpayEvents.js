@@ -1,12 +1,12 @@
-const Razorpay = require("razorpay");
-const { addToSQSQueue } = require("./src/utils/aws/sqs");
+const { validateWebhookSignature } =require("razorpay")
+const { addToSQSQueue } =require("./src/utils/aws/sqs.js");
 
-exports.handler = async function (event, context, callback) {
+async function handler (event, context, callback) {
   try {
     console.log("event",event);
     const signature = event.headers['x-razorpay-signature'];
     const rawBody = event.body;
-    let isSignatureValid = Razorpay.validateWebhookSignature(event.body,signature,process.env.RAZORPAY_WEBHOOK_SECRET);
+    let isSignatureValid = validateWebhookSignature(event.body,signature,process.env.RAZORPAY_WEBHOOK_SECRET);
     console.log("sig", isSignatureValid);
     if(isSignatureValid){
         const body = JSON.parse(rawBody);
@@ -83,3 +83,5 @@ exports.handler = async function (event, context, callback) {
   };
   return data; 
 }
+
+module.exports.handler = handler;

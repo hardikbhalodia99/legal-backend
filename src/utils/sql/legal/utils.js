@@ -1,13 +1,12 @@
 const { Sequelize } = require("sequelize");
 
-const ClientModel = require("../../../models/sql/legal/client");
-const EmployeeModel = require("../../../models/sql/legal/employee");
-const InvoiceModel = require("../../../models/sql/legal/invoice");
-const OrderModel = require("../../../models/sql/legal/order");
-const ProductModel = require("../../../models/sql/legal/product");
-const OrganizationModel = require("../../../models/sql/legal/organization");
-const PaymentModel = require("../../../models/sql/legal/payment");
-
+const ClientModel = require("../../../models/sql/legal/client.js");
+const EmployeeModel = require("../../../models/sql/legal/employee.js");
+const InvoiceModel = require("../../../models/sql/legal/invoice.js");
+const OrderModel = require("../../../models/sql/legal/order.js");
+const ProductModel = require("../../../models/sql/legal/product.js");
+const OrganizationModel = require("../../../models/sql/legal/organization.js");
+const PaymentModel = require("../../../models/sql/legal/payment.js");
 
 async function getSequelize() {
 	const sequelize = new Sequelize(
@@ -57,8 +56,6 @@ async function getLegalDB() {
 }
 
 
-
-
 async function getClientModel(sequelize) {
 	const Clients = ClientModel(sequelize, Sequelize);
 	await Clients.sync({ alter: false, force: false });
@@ -73,7 +70,7 @@ async function getOrganizationModel(sequelize) {
 
 async function getProductModel(sequelize) {
 	const Product = ProductModel(sequelize, Sequelize);
-	await Product.sync({ alter: false, force: false });
+	await Product.sync({ alter: true, force: false });
 	return Product;
 }
 
@@ -101,11 +98,12 @@ async function getPaymentModel(sequelize) {
 	return Payment;
 }
 
-module.exports.getLegalDB = getLegalDB;
-module.exports.getClientModel = getClientModel;
-module.exports.getOrganizationModel = getOrganizationModel;
-module.exports.getProductModel = getProductModel;
-module.exports.getEmployeeModel = getEmployeeModel;
-module.exports.getInvoiceModel = getInvoiceModel;
-module.exports.getOrderModel = getOrderModel;
-module.exports.getPaymentModel = getPaymentModel;
+
+module.exports.getLegalDB = getLegalDB
+module.exports.getClientModel = getClientModel
+module.exports.getOrganizationModel = getOrganizationModel
+module.exports.getProductModel = getProductModel
+module.exports.getEmployeeModel = getEmployeeModel
+module.exports.getInvoiceModel = getInvoiceModel
+module.exports.getOrderModel = getOrderModel
+module.exports.getPaymentModel = getPaymentModel
