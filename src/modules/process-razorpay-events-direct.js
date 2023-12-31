@@ -1,5 +1,5 @@
 const { createAppwriteAccount } = require("../utils/appwrite/client");
-const { createMongoClient } = require("../utils/mongo");
+const { createMongoClient, getMongoFormByFormId, createMultipleDirectors, createMultipleNominees } = require("../utils/mongo");
 const { getOrganizationByOrganizationId, confirmPayment, createSQLClient, getProductByOrganizationIdAndSlug, createOrder } = require("../utils/sql/legal");
 
 async function processRazorpayEventsDirect(messageAttributes){
@@ -11,8 +11,16 @@ async function processRazorpayEventsDirect(messageAttributes){
     const finalDataString = JSON.parse(rzpDataString);
     console.log("%c 🍿 finalDataString", "color:#93c0a4", finalDataString);
   
-    const {organization_id , name,email,amount,products,payment_id,order_id} = finalDataString
+    const {form_id,payment_id,order_id,amount} = finalDataString
   
+    const formData = await getMongoFormByFormId({form_id : form_id})
+    if(!formData){
+      console.error("NO FORM FOUND BUT GOT PAYMENT")
+      return
+    }
+
+    const { organization_id,client_email,client_name,products } = formData
+
     const organization = await getOrganizationByOrganizationId({
       organization_id : organization_id
     })
@@ -27,11 +35,11 @@ async function processRazorpayEventsDirect(messageAttributes){
       external_payment_id : payment_id
     })
   
-    const password = email
+    const password = client_email
   
     const appwriteUser = await createAppwriteAccount({
-      email : email,
-      name : name,
+      email : client_email,
+      name : client_name,
       password : password
     })
   
@@ -39,21 +47,23 @@ async function processRazorpayEventsDirect(messageAttributes){
   
     const client = await createSQLClient({
       appwrite_id : appwrite_user_id,
-      client_email : email,
-      client_name : name,
+      client_email : client_email,
+      client_name : client_name,
       organization_id : organization_id
     })
   
-    let productKeys = Object.keys(products)
+    
   
     const mongoClient = await createMongoClient({
       client_id : client.client_id,
     })
-    
-    if(productKeys.include('pvt-ltd')){
+
+    for (let i = 0; i < products.length; i++) {
+      const product = products[i];
+      
       const pvtProduct = await getProductByOrganizationIdAndSlug({
         organization_id : organization_id,
-        product_slug : 'pvt-ltd'
+        product_slug : product.product_slug
       })
       console.log("%c 🌽 pvtProduct", "color:#7f2b82", pvtProduct);
   
@@ -62,13 +72,29 @@ async function processRazorpayEventsDirect(messageAttributes){
         product_id : pvtProduct.product_id,
         client_id : client.client_id,
         order_amount : pvtProduct.product_price,
-        quantity : 1,
+        quantity : product.quantity,
         reference_id : payment_id
       })
       console.log("%c 🥚 order", "color:#465975", order);
-  
-      
+
+      if(["pvt-ltd", "llp", "opc"].includes(product.product_slug)){
+        await createMultipleDirectors({client_id : client.client_id,total_directors : 2,begin_with : 1 })
+        
+        if(product.product_slug === "opc"){
+          await createMultipleNominees({client_id : client.client_id})
+        } 
+      }
+
+
+      if(["pvt-directors", "llp-directors", "opc-directors"].includes(product.product_slug)){
+        const total_directors = parseInt(product.quantity)
+        await createMultipleDirectors({client_id : client.client_id,total_directors : total_directors,begin_with : 3 })
+      }
+
+
     }
+    
+    
   
   
   

@@ -45,6 +45,26 @@ async function createProduct({organization_id,product_name,product_slug,product_
   }
 }
 
+async function getAllOrganizationProducts({organization_id}){
+  try{
+    const sequelize = await getLegalDB()
+    const ProductsModel = await getProductModel(sequelize)
+
+    const products = await ProductsModel.findAll({
+      where : {
+        organization_id : organization_id,
+        is_deleted : false
+      },
+      raw : true
+    })
+
+    return products
+
+  }catch(error){
+    console.error("Server Error in sql/legal/product in getAllOrganizationProducts ==> Error : ",error)
+  }
+}
 
 module.exports.createProduct = createProduct
 module.exports.getProductByOrganizationIdAndSlug = getProductByOrganizationIdAndSlug
+module.exports.getAllOrganizationProducts = getAllOrganizationProducts;

@@ -5,19 +5,19 @@ const { createOrganization, createProduct } = require("../../../utils/sql/legal/
 async function testFunction (req,res){
   try{
 
-    let eventsData = {
-      rzpData : {
-          StringValue: JSON.stringify({"hello" : "hello"}),
-          DataType: 'String'
-      }
-  }
-  await addToSQSQueue({
-      data : eventsData,
-      type: "PROCESS_RAZORPAY_EVENTS_DIRECT"
-  });
-    // const organization = await createOrganization({
-    //   organization_name : "Legal Team"
-    // })
+  //   let eventsData = {
+  //     rzpData : {
+  //         StringValue: JSON.stringify({"hello" : "hello"}),
+  //         DataType: 'String'
+  //     }
+  // }
+  // await addToSQSQueue({
+  //     data : eventsData,
+  //     type: "PROCESS_RAZORPAY_EVENTS_DIRECT"
+  // });
+    const organization = {
+      organization_id : "ORG4uJNgdZPKnyU"
+    }
 
     // const mongoOrganization = await createMongoOrganization({
     //   organization_id : "ORG4uJNgdZPKnyU",
@@ -27,10 +27,10 @@ async function testFunction (req,res){
 
     // const pvtProduct = await createProduct({
     //   organization_id : organization.organization_id,
-    //   product_name : "Private Limited Company Registration",
-    //   product_price : 5800,
+    //   product_name : "Limited Liability Partnership Registration",
+    //   product_price : 5400,
     //   product_discount : 0,
-    //   product_slug : "pvt-ltd"
+    //   product_slug : "llp"
     // })
 
     // const gstProduct = await createProduct({
@@ -60,9 +60,9 @@ async function testFunction (req,res){
     // const dirProduct = await createProduct({
     //   organization_id : organization.organization_id,
     //   product_name : "Additional Directors",
-    //   product_price : 944,
+    //   product_price : 844,
     //   product_discount : 0,
-    //   product_slug : "pvt-directors"
+    //   product_slug : "llp-directors"
     // })  
     
     return res.status(201).set({"Access-Control-Allow-Origin": "*"}).json({

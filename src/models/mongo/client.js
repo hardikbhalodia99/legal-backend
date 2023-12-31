@@ -8,11 +8,7 @@ const ClientSchema = new Schema(
 			required: true,
 		},
 		form_filled: { type: Boolean, defaultValue: false },
-		director_information: {
-			total_directors: {
-				type: Number,
-			},
-		},
+	
 		company_details: {
 			company_email: { type: String },
 			company_name_priority_1: { type: String },
@@ -28,11 +24,14 @@ const ClientSchema = new Schema(
 			state: { type: String },
 			country: { type: String },
 			pin_code: { type: String },
+			police_station_name : {type : String},
+			police_station_address : {type : String},
+			documents : {
+				address_proof_link : {type : String}
+			}
 		},
-		status: {
-			type: Number,
-			default: 1,
-		},
+		
+	
 		isDeleted: {
 			type: Boolean,
 			default: false,

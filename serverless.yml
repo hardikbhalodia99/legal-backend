@@ -25,7 +25,7 @@ provider:
     APPWRITE_ENDPOINT : ${ssm:/${self:provider.stage}/internal/apwrite/endpoint}
     APPWRITE_SERVER_API_KEY : ${ssm:/${self:provider.stage}/internal/apwrite/apikey}
     RAZORPAY_WEBHOOK_SECRET : ${ssm:/${self:provider.stage}/internal/razorpay/webhook/secret}
-
+    V1_API_KEY :  ${ssm:/${self:provider.stage}/internal/v1/apikey}
 functions:
   main:
     handler: index.handler

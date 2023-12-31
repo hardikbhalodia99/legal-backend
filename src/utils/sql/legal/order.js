@@ -23,4 +23,23 @@ async function createOrder({order_amount,quantity,reference_id,client_id,organiz
   }
 }
 
+async function getAllClientOrdersByClientId({client_id}){
+  try{
+    const sequelize = await getLegalDB()
+    const OrderModel = await getOrderModel(sequelize)
+
+    const orders = await OrderModel.findAll({
+      where : {
+        client_id : client_id,
+      },
+      raw :true
+    })
+
+    return orders
+  }catch(error){
+    console.error("Server Error in sql/order at getAllClientOrdersByClientId ==> Error : ",error);
+  }
+}
+
 module.exports.createOrder = createOrder;
+module.exports.getAllClientOrdersByClientId = getAllClientOrdersByClientId;

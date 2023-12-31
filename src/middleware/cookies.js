@@ -4,7 +4,7 @@ const COOKIE_NAME = process.env.APP_ENV === 'prod' ? 'legal-user-dashboard' : 'l
 const ONE_WEEK_IN_MS = 7 * 60 * 60 * 24 * 1000;
 const TWO_WEEKS_IN_MS = 14 * 60 * 60 * 24 * 1000;
 const ONE_YEAR_IN_MS = 365 * 60 * 60 * 24 * 1000;
-const KEYS = ['gfhfghdfghfdghfghdfg'];
+const KEYS = ['rnwlK59ZJGTJ5dyYajbjOda1Jz5QJd6f'];
 
 const cookieConfig = {
   keys: KEYS,

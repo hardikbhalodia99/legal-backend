@@ -4,7 +4,8 @@ const { addToSQSQueue } =require("./src/utils/aws/sqs.js");
 async function handler (event, context, callback) {
   try {
     console.log("event",event);
-    const signature = event.headers['x-razorpay-signature'];
+    const signature = event.headers['X-Razorpay-Signature'];
+    console.log("%c 🍒 signature", "color:#ea7e5c", signature);
     const rawBody = event.body;
     let isSignatureValid = validateWebhookSignature(event.body,signature,process.env.RAZORPAY_WEBHOOK_SECRET);
     console.log("sig", isSignatureValid);
@@ -13,15 +14,16 @@ async function handler (event, context, callback) {
         console.log('%c 🥝 body.event: ', 'font-size:20px;background-color: #FCA650;color:#fff;', body.event);
 
         const data = body.payload.payment.entity;
+        console.log("%c 🍬 data", "color:#f5ce50", data);
         
         const razorpay_payment_id = data.id;
         const razorpay_order_id = data.order_id;
         const paid_amount = (data.amount)/100
 
         const notes = data.notes
-        const products = notes.products
+        console.log("%c 🌰 notes", "color:#ea7e5c", notes);
         const organization_id = notes.organization_id
-      
+        const form_id = notes.form_id
         
            
 
@@ -30,10 +32,7 @@ async function handler (event, context, callback) {
           order_id : razorpay_order_id,
           organization_id: organization_id,
           amount : paid_amount,
-          products : products,
-          email : notes.email,
-          name : notes.name,
-          
+          form_id : form_id
         }
 
         let eventsData = {

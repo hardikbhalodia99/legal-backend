@@ -1,17 +1,18 @@
-const { createSQLClient, getClientByClientId } = require("./client");
-const { createOrder } = require("./order");
+const { createSQLClient, getClientByClientId,getClientByAppwriteId } = require("./client");
+const { createOrder, getAllClientOrdersByClientId } = require("./order");
 const { createOrganization, getOrganizationByOrganizationId } = require("./organization");
 const { createPayment, getPayment, confirmPayment, updatePayment } = require("./payment");
-const { createProduct, getProductByOrganizationIdAndSlug } = require("./product");
+const { createProduct, getProductByOrganizationIdAndSlug ,getAllOrganizationProducts} = require("./product");
 const { getLegalDB, getClientModel, getOrganizationModel, getProductModel, getEmployeeModel, getInvoiceModel, getOrderModel, getPaymentModel } = require("./utils");
 
 //client exports
 module.exports.createSQLClient = createSQLClient
 module.exports.getClientByClientId = getClientByClientId
+module.exports.getClientByAppwriteId = getClientByAppwriteId;
 
 //order exports
 module.exports.createOrder = createOrder;
-
+module.exports.getAllClientOrdersByClientId = getAllClientOrdersByClientId;
 
 //organizations exports
 module.exports.createOrganization = createOrganization
@@ -27,7 +28,7 @@ module.exports.updatePayment = updatePayment;
 //product exports
 module.exports.createProduct = createProduct
 module.exports.getProductByOrganizationIdAndSlug = getProductByOrganizationIdAndSlug
-
+module.exports.getAllOrganizationProducts = getAllOrganizationProducts;
 
 
 //utils exports

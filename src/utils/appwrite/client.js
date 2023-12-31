@@ -9,7 +9,7 @@ async function createAppwriteAccount({name,email,password}){
     client.setEndpoint(endpoint).setProject(project).setKey(process.env.APPWRITE_SERVER_API_KEY);
     const users = new Users(client);
   
-    const newUser = await users.create(ID.unique(), email, '', password, name);
+    const newUser = await users.create(ID.unique(), email, undefined, password, name);
     console.log("%c 🍺 newUser", "color:#4fff4B", newUser);
 
     return newUser;

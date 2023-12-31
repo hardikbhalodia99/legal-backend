@@ -13,7 +13,7 @@ const NomineeSchema = new Schema(
 		nominee_email: { type: String },
 		nominee_phone: { type: String },
 		current_occupation: { type: String },
-		citizenship: { type: Number },
+		citizenship: { type: String },
 		nominee_address: { type: String },
 		nominee_city: { type: String },
 		nominee_state: { type: String },
