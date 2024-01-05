@@ -1,6 +1,7 @@
+const { createAppwriteAccount } = require("../../../utils/appwrite/client.js")
 const { addToSQSQueue } = require("../../../utils/aws/sqs.js")
 const { createMongoOrganization } = require("../../../utils/mongo/index.js")
-const { createOrganization, createProduct } = require("../../../utils/sql/legal/index.js")
+const { createOrganization, createProduct, createNewEmployee } = require("../../../utils/sql/legal/index.js")
 
 async function testFunction (req,res){
   try{
@@ -18,6 +19,17 @@ async function testFunction (req,res){
     const organization = {
       organization_id : "ORG4uJNgdZPKnyU"
     }
+    await createNewEmployee({
+      employee_email : "hardik@climes.io",
+      employee_name : "hardik",
+      password : "helloRTS.com", 
+      employee_phone : "+916355129211",
+      employee_type : "ADMIN",
+      organization_id : "ORG4uJNgdZPKnyU"
+
+     
+
+    })
 
     // const mongoOrganization = await createMongoOrganization({
     //   organization_id : "ORG4uJNgdZPKnyU",

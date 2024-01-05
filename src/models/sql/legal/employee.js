@@ -25,6 +25,10 @@ module.exports = (sequelize, DataTypes) => {
 			appwrite_id: {
 				type: DataTypes.STRING,
 			},
+			disabled : {
+				type : DataTypes.BOOLEAN,
+				defaultValue : false
+			}
 		},
 		{
 			timestamps: true,

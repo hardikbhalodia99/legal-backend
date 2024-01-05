@@ -1,5 +1,6 @@
 const { createSQLClient, getClientByClientId,getClientByAppwriteId } = require("./client");
-const { createOrder, getAllClientOrdersByClientId } = require("./order");
+const { createNewEmployee,getEmployeeByAppwriteId,getAllOrganizationEmployees, updateEmployeeDetailsById, disableEmployeeById, getEmployeeByEmployeeId } = require("./employee");
+const { createOrder, getAllClientOrdersByClientId,getClientsOrdersByProductId } = require("./order");
 const { createOrganization, getOrganizationByOrganizationId } = require("./organization");
 const { createPayment, getPayment, confirmPayment, updatePayment } = require("./payment");
 const { createProduct, getProductByOrganizationIdAndSlug ,getAllOrganizationProducts} = require("./product");
@@ -13,6 +14,7 @@ module.exports.getClientByAppwriteId = getClientByAppwriteId;
 //order exports
 module.exports.createOrder = createOrder;
 module.exports.getAllClientOrdersByClientId = getAllClientOrdersByClientId;
+module.exports.getClientsOrdersByProductId = getClientsOrdersByProductId;
 
 //organizations exports
 module.exports.createOrganization = createOrganization
@@ -40,3 +42,11 @@ module.exports.getEmployeeModel = getEmployeeModel
 module.exports.getInvoiceModel = getInvoiceModel
 module.exports.getOrderModel = getOrderModel
 module.exports.getPaymentModel = getPaymentModel
+
+//employee exports
+module.exports.createNewEmployee = createNewEmployee;
+module.exports.getEmployeeByAppwriteId = getEmployeeByAppwriteId;
+module.exports.getAllOrganizationEmployees = getAllOrganizationEmployees;
+module.exports.updateEmployeeDetailsById = updateEmployeeDetailsById;
+module.exports.disableEmployeeById = disableEmployeeById;
+module.exports.getEmployeeByEmployeeId = getEmployeeByEmployeeId;

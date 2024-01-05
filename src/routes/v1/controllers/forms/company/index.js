@@ -103,20 +103,20 @@ async function addOfficeDetails(req,res) {
 async function uploadDocuments(req,res){
   try {
 		
-    // const validationResponse = await validateAuth(req,res)
-    // if (!validationResponse.isValid) {
-    //   return res.status(403).set({"Access-Control-Allow-Origin": "*"}).json({
-    //     message: "Failed to authenticate bearer token.",
-    //   })
-    // }
-    // const appwrite_id = validationResponse.data.$id
-    // if (!appwrite_id) {
-    //   return res.status(403).set({"Access-Control-Allow-Origin": "*"}).json({
-    //     message: "Auth Error: Partner not found"
-    //   })
-    // }
+    const validationResponse = await validateAuth(req,res)
+    if (!validationResponse.isValid) {
+      return res.status(403).set({"Access-Control-Allow-Origin": "*"}).json({
+        message: "Failed to authenticate bearer token.",
+      })
+    }
+    const appwrite_id = validationResponse.data.$id
+    if (!appwrite_id) {
+      return res.status(403).set({"Access-Control-Allow-Origin": "*"}).json({
+        message: "Auth Error: Partner not found"
+      })
+    }
 
-    const client = await getClientByAppwriteId({appwrite_id : "6587cb9b0f7040516011"})
+    const client = await getClientByAppwriteId({appwrite_id : appwrite_id})
     if(!client){
       return res.status(400).set({"Access-Control-Allow-Origin": "*"}).json({
         message: "Failed to fetch client details"
