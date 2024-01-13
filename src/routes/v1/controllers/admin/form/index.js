@@ -1,5 +1,5 @@
 const { validateAdminAuth } = require("../../../../../middleware/auth")
-const { getMongoClientByClientId } = require("../../../../../utils/mongo")
+const { getMongoClientByClientId, getDirectorsByClientId, getNomineesByClientId } = require("../../../../../utils/mongo")
 const { getEmployeeByAppwriteId, getProductByOrganizationIdAndSlug } = require("../../../../../utils/sql/legal")
 
 async function getFormDetails(req,res){
@@ -20,7 +20,7 @@ async function getFormDetails(req,res){
     const employee = await getEmployeeByAppwriteId({appwrite_id : appwrite_id})
     const organization_id = employee.organization_id
 
-    const {productSlug} = req.params
+    const {productSlug,clientId} = req.params
 
     const product = await getProductByOrganizationIdAndSlug({
       organization_id  : organization_id,
@@ -33,19 +33,19 @@ async function getFormDetails(req,res){
       }) 
     }
 
-    const mongoClient = await getMongoClientByClientId({client_id : client.client_id})
+    const mongoClient = await getMongoClientByClientId({client_id : clientId})
     console.log("%c 🥟 mongoClient", "color:#7f2b82", mongoClient);
 
     let directorDetails = null
     let nomineeDetails = null
     if(["llp","opc","pvt-ltd"].includes(productSlug)){
       directorDetails = await getDirectorsByClientId({
-        client_id : client.client_id
+        client_id : clientId
       })
 
       if(productSlug === "opc"){
         nomineeDetails = await getNomineesByClientId({
-          client_id : client.client_id
+          client_id : clientId
         })
       }
     }
