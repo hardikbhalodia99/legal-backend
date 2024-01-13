@@ -17,17 +17,34 @@ async function getClientOrders(req,res){
     }
 
     const employee = await getEmployeeByAppwriteId({appwrite_id : appwrite_id})
-    // if(!employee)
-    // const {productSlug} = req.params
+    const organization_id = employee.organization_id
+
+    const {productSlug} = req.params
 
     const product = await getProductByOrganizationIdAndSlug({
-
+      organization_id  : organization_id,
+      product_slug : productSlug
     })
 
-    const orders = await getClientsOrdersByProductId()    
+    if(!product){
+      return res.status(400).set({"Access-Control-Allow-Origin": "*"}).json({
+        message: "No product found for this slug"
+      }) 
+    }
+
+    const orders = await getClientsOrdersByProductId({product_id : product.product_id})    
+
+    return res.status(200).set({"Access-Control-Allow-Origin": "*"}).json({
+      orders : orders
+    })
+    
 
   }catch(error){
     console.log("Server Error in controllers/admin/orders/index at getClientOrders ==> : ",error);
-
+    return res.status(500).set({"Access-Control-Allow-Origin": "*"}).json({
+      message: "Server Error! Failed to get orders."
+    })
   }
 }
+
+module.exports.getClientOrders = getClientOrders;

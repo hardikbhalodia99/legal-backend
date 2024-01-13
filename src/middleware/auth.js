@@ -46,6 +46,14 @@ const validateAdminAuth = async (req, res) => {
     return { isValid: false };
   } else {
     console.log('VALID AUTH HEADERS');
+
+    const role = data.prefs && data.prefs.role ? data.prefs.role : null
+    if(!role || role !== "ADMIN"){
+      return {
+        isValid : false
+      }
+    }
+
     return {
       isValid: true,
       data: data
