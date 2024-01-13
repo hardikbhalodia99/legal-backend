@@ -1,11 +1,11 @@
-const { validateAuth } = require("../../../../../middleware/auth");
+const { validateAdminAuth } = require("../../../../../middleware/auth");
 const { updateAppwriteClientPassword } = require("../../../../../utils/appwrite/client");
 const { getAllOrganizationEmployees, getEmployeeByAppwriteId, getEmployeeByEmployeeId, updateEmployeeDetailsById, disableEmployeeById, createNewEmployee } = require("../../../../../utils/sql/legal");
 
 async function getAllEmployees(req,res){
   try{
 
-    const validationResponse = await validateAuth(req,res)
+    const validationResponse = await validateAdminAuth(req,res)
     if (!validationResponse.isValid) {
       return res.status(403).set({"Access-Control-Allow-Origin": "*"}).json({
         message: "Failed to authenticate bearer token.",
@@ -47,7 +47,7 @@ async function getAllEmployees(req,res){
 async function updateEmployeeDetails(req,res){
   try{
 
-    const validationResponse = await validateAuth(req,res)
+    const validationResponse = await validateAdminAuth(req,res)
     if (!validationResponse.isValid) {
       return res.status(403).set({"Access-Control-Allow-Origin": "*"}).json({
         message: "Failed to authenticate bearer token.",
@@ -100,7 +100,7 @@ async function updateEmployeeDetails(req,res){
 async function updateEmployeeStatus(req,res){
   try{
 
-    const validationResponse = await validateAuth(req,res)
+    const validationResponse = await validateAdminAuth(req,res)
     if (!validationResponse.isValid) {
       return res.status(403).set({"Access-Control-Allow-Origin": "*"}).json({
         message: "Failed to authenticate bearer token.",
@@ -157,7 +157,7 @@ async function updateEmployeeStatus(req,res){
 async function updateEmployeePassword(req,res){
   try{
 
-    const validationResponse = await validateAuth(req,res)
+    const validationResponse = await validateAdminAuth(req,res)
     if (!validationResponse.isValid) {
       return res.status(403).set({"Access-Control-Allow-Origin": "*"}).json({
         message: "Failed to authenticate bearer token.",
@@ -208,7 +208,7 @@ async function updateEmployeePassword(req,res){
 async function createEmployee(req,res){
   try{
 
-    const validationResponse = await validateAuth(req,res)
+    const validationResponse = await validateAdminAuth(req,res)
     if (!validationResponse.isValid) {
       return res.status(403).set({"Access-Control-Allow-Origin": "*"}).json({
         message: "Failed to authenticate bearer token.",

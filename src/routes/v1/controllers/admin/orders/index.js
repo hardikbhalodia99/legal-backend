@@ -1,8 +1,9 @@
+const { validateAdminAuth } = require("../../../../../middleware/auth")
 const { getProductByOrganizationIdAndSlug, getClientsOrdersByProductId ,getEmployeeByAppwriteId} = require("../../../../../utils/sql/legal")
 
 async function getClientOrders(req,res){
   try{
-    const validationResponse = await validateAuth(req,res)
+    const validationResponse = await validateAdminAuth(req,res)
     if (!validationResponse.isValid) {
       return res.status(403).set({"Access-Control-Allow-Origin": "*"}).json({
         message: "Failed to authenticate bearer token.",

@@ -1,6 +1,6 @@
 const axios = require('axios');
 const { Client, Account } = require('node-appwrite');
-const { getAuthUserTokensCookieName, setCookie, cookieConfig } = require('./cookies');
+const { getAuthUserTokensCookieName, setCookie, adminCookieConfig,employeeCookieConfig,userCookieConfig } = require('./cookies');
 
 const endpoint = process.env.APPWRITE_ENDPOINT;
 const project = process.env.APPWRITE_PROJECT_ID;
@@ -32,7 +32,7 @@ const getUser = async (fallback) => {
   return user;
 };
 
-const getUserAccount = async (jwt, fallback, req, res) => {
+const getUserAccount = async (jwt, fallback, req, res,type) => {
   const client = new Client();
   const account = new Account(client);
   client.setEndpoint(endpoint).setProject(project);
@@ -54,7 +54,7 @@ const getUserAccount = async (jwt, fallback, req, res) => {
       cookieVal: jwt,
       req: req,
       res: res,
-      Options: cookieConfig
+      Options: type === "admin" ? adminCookieConfig : (type === "employee" ? employeeCookieConfig : userCookieConfig)
     });
     return user;
   }

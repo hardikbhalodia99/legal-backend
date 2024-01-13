@@ -1,19 +1,19 @@
-const { getAuthUserFallbackCookie, getCookie, cookieConfig } = require("./cookies");
+const { getAuthUserFallbackCookie, getCookie, adminCookieConfig,employeeCookieConfig,userCookieConfig } = require("./cookies");
 const { getUserAccount } = require("./appwrite.js");
 
-const validateAuth = async (req, res) => {
+const validateUserAuth = async (req, res) => {
   console.log('%c 🍰 req.headers.authorization', 'color:#7f2b82', req.headers.authorization);
-  const fallbackCookieName = getAuthUserFallbackCookie();
+  const fallbackCookieName = getAuthUserFallbackCookie('user');
   const reqConfig = {
-    signed: cookieConfig.signed,
-    keys: cookieConfig.keys,
+    signed: userCookieConfig.signed,
+    keys: userCookieConfig.keys,
     req: req,
     res: res,
-    secure: cookieConfig.secure
+    secure: userCookieConfig.secure
   };
   let fallbackCookieVal = getCookie(fallbackCookieName, reqConfig);
 
-  const data = await getUserAccount(req.headers.authorization, fallbackCookieVal, req, res);
+  const data = await getUserAccount(req.headers.authorization, fallbackCookieVal, req, res,'user');
   console.log('%c 🍡 data', 'color:#33a5ff', data);
   if (!data) {
     console.log('INVALID AUTH HEADERS');
@@ -29,17 +29,17 @@ const validateAuth = async (req, res) => {
 
 const validateAdminAuth = async (req, res) => {
   console.log('%c 🍰 req.headers.authorization', 'color:#7f2b82', req.headers.authorization);
-  const fallbackCookieName = getAuthUserFallbackCookie();
+  const fallbackCookieName = getAuthUserFallbackCookie('admin');
   const reqConfig = {
-    signed: cookieConfig.signed,
-    keys: cookieConfig.keys,
+    signed: adminCookieConfig.signed,
+    keys: adminCookieConfig.keys,
     req: req,
     res: res,
-    secure: cookieConfig.secure
+    secure: adminCookieConfig.secure
   };
   let fallbackCookieVal = getCookie(fallbackCookieName, reqConfig);
 
-  const data = await getUserAccount(req.headers.authorization, fallbackCookieVal, req, res);
+  const data = await getUserAccount(req.headers.authorization, fallbackCookieVal, req, res,'admin');
   console.log('%c 🍡 data', 'color:#33a5ff', data);
   if (!data) {
     console.log('INVALID AUTH HEADERS');
@@ -53,6 +53,33 @@ const validateAdminAuth = async (req, res) => {
   }
 };
 
-module.exports.validateAuth = validateAuth;
+const validateEmployeeAuth = async (req, res) => {
+  console.log('%c 🍰 req.headers.authorization', 'color:#7f2b82', req.headers.authorization);
+  const fallbackCookieName = getAuthUserFallbackCookie('employee');
+  const reqConfig = {
+    signed: employeeCookieConfig.signed,
+    keys: employeeCookieConfig.keys,
+    req: req,
+    res: res,
+    secure: employeeCookieConfig.secure
+  };
+  let fallbackCookieVal = getCookie(fallbackCookieName, reqConfig);
+
+  const data = await getUserAccount(req.headers.authorization, fallbackCookieVal, req, res,'employee');
+  console.log('%c 🍡 data', 'color:#33a5ff', data);
+  if (!data) {
+    console.log('INVALID AUTH HEADERS');
+    return { isValid: false };
+  } else {
+    console.log('VALID AUTH HEADERS');
+    return {
+      isValid: true,
+      data: data
+    };
+  }
+};
+
+module.exports.validateUserAuth = validateUserAuth;
 module.exports.validateAdminAuth = validateAdminAuth;
+module.exports.validateEmployeeAuth = validateEmployeeAuth;
 

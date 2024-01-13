@@ -1,4 +1,4 @@
-const { validateAuth } = require("../../../../../middleware/auth.js");
+const { validateUserAuth } = require("../../../../../middleware/auth.js");
 const { uploadPdfToS3Bucket, uploadImageToS3Bucket } = require("../../../../../utils/aws/s3.js");
 const { updateCompanyDetailsByClientId, updateOfficeDetailsByClientId, updateOfficeDocumentsByClientId,updateNomineeDocumentsByNomineeId,updateDirectorDocumentByDirectorId } = require("../../../../../utils/mongo/index.js");
 const { getClientByAppwriteId } = require("../../../../../utils/sql/legal/client.js");
@@ -9,7 +9,7 @@ async function addCompanyDetails(req,res) {
   console.log("%c 🥟 req", "color:#42b983", req);
 	try {
 		const { company_details } = req.body;
-    const validationResponse = await validateAuth(req,res)
+    const validationResponse = await validateUserAuth(req,res)
     if (!validationResponse.isValid) {
       return res.status(403).set({"Access-Control-Allow-Origin": "*"}).json({
         message: "Failed to authenticate bearer token.",
@@ -56,7 +56,7 @@ async function addCompanyDetails(req,res) {
 async function addOfficeDetails(req,res) {
 	try {
 		const { office_details } = req.body;
-    const validationResponse = await validateAuth(req,res)
+    const validationResponse = await validateUserAuth(req,res)
     if (!validationResponse.isValid) {
       return res.status(403).set({"Access-Control-Allow-Origin": "*"}).json({
         message: "Failed to authenticate bearer token.",
@@ -103,7 +103,7 @@ async function addOfficeDetails(req,res) {
 async function uploadDocuments(req,res){
   try {
 		
-    const validationResponse = await validateAuth(req,res)
+    const validationResponse = await validateUserAuth(req,res)
     if (!validationResponse.isValid) {
       return res.status(403).set({"Access-Control-Allow-Origin": "*"}).json({
         message: "Failed to authenticate bearer token.",

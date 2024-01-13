@@ -1,13 +1,41 @@
 const Cookies = require('cookies');
-const COOKIE_NAME = process.env.APP_ENV === 'prod' ? 'legal-user-dashboard' : 'legal-user-dashboard-staging';
+const USER_COOKIE_NAME = process.env.APP_ENV === 'prod' ? 'legal-user-dashboard' : 'legal-user-dashboard-staging';
+const ADMIN_COOKIE_NAME = process.env.APP_ENV === "prod" ? "legal-admin-dashboard" : "legal-admin-dashboard-staging"
+const EMPLOYEE_COOKIE_NAME = process.env.APP_ENV === "prod" ? "legal-employee-dashboard" : "legal-employee-dashboard-staging"
 
-const ONE_WEEK_IN_MS = 7 * 60 * 60 * 24 * 1000;
-const TWO_WEEKS_IN_MS = 14 * 60 * 60 * 24 * 1000;
 const ONE_YEAR_IN_MS = 365 * 60 * 60 * 24 * 1000;
-const KEYS = ['rnwlK59ZJGTJ5dyYajbjOda1Jz5QJd6f'];
+const USER_KEYS = ['rnwlK59ZJGTJ5dyYajbjOda1Jz5QJd6f'];
+const ADMIN_KEYS = ["viPM47Ocf1S9fxSPh34uKJ2E8Y5Xsi8T"]
+const EMPLOYEE_KEYS = ["HaIVuyNdzgAGU9V1LtYTy14V6gSU3eaX"]
 
-const cookieConfig = {
-  keys: KEYS,
+
+
+const userCookieConfig = {
+  keys: USER_KEYS,
+  httpOnly: true,
+  domain: process.env.NODE_ENV === 'development' ? '' : '',
+  maxAge: ONE_YEAR_IN_MS, // one year
+  overwrite: true,
+  path: '/',
+  sameSite: 'strict',
+  secure: process.env.NODE_ENV === 'development' ? false : true,
+  signed: true
+};
+
+const adminCookieConfig = {
+  keys: ADMIN_KEYS,
+  httpOnly: true,
+  domain: process.env.NODE_ENV === 'development' ? '' : '',
+  maxAge: ONE_YEAR_IN_MS, // one year
+  overwrite: true,
+  path: '/',
+  sameSite: 'strict',
+  secure: process.env.NODE_ENV === 'development' ? false : true,
+  signed: true
+};
+
+const employeeCookieConfig = {
+  keys: EMPLOYEE_KEYS,
   httpOnly: true,
   domain: process.env.NODE_ENV === 'development' ? '' : '',
   maxAge: ONE_YEAR_IN_MS, // one year
@@ -69,18 +97,18 @@ const setCookie = (SetCookieRequest) => {
   });
 };
 
-const getAuthUserFallbackCookie = () => {
-  const baseAuthCookieName = COOKIE_NAME;
+const getAuthUserFallbackCookie = (type) => {
+  const baseAuthCookieName = type === "admin" ? ADMIN_COOKIE_NAME : (type === "employee" ? EMPLOYEE_COOKIE_NAME : USER_COOKIE_NAME)
   return `${baseAuthCookieName}.AuthUserFallback`;
 };
 
-const getAuthUserTokensCookieName = () => {
-  const baseAuthCookieName = COOKIE_NAME;
+const getAuthUserTokensCookieName = (type) => {
+  const baseAuthCookieName = type === "admin" ? ADMIN_COOKIE_NAME : (type === "employee" ? EMPLOYEE_COOKIE_NAME : USER_COOKIE_NAME)
   return `${baseAuthCookieName}.AuthUserTokens`;
 };
 
-const getAuthUserCookieName = () => {
-  const baseAuthCookieName = COOKIE_NAME;
+const getAuthUserCookieName = (type) => {
+  const baseAuthCookieName = type === "admin" ? ADMIN_COOKIE_NAME : (type === "employee" ? EMPLOYEE_COOKIE_NAME : USER_COOKIE_NAME)
   return `${baseAuthCookieName}.AuthUser`;
 };
 
@@ -107,7 +135,9 @@ const encodeBase64 = (obj) => {
   return Buffer.from(str).toString('base64')
 }
 
-module.exports.cookieConfig = cookieConfig
+module.exports.adminCookieConfig = adminCookieConfig
+module.exports.userCookieConfig = userCookieConfig
+module.exports.employeeCookieConfig = employeeCookieConfig
 module.exports.getCookie = getCookie
 module.exports.setCookie = setCookie
 module.exports.getAuthUserFallbackCookie = getAuthUserFallbackCookie

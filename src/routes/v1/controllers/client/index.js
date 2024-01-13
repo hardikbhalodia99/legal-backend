@@ -1,11 +1,11 @@
-const { validateAuth } = require("../../../../middleware/auth")
+const { validateUserAuth } = require("../../../../middleware/auth")
 const { getMongoClientByClientId, getNomineesByClientId, getDirectorsByClientId } = require("../../../../utils/mongo")
 const { getClientByAppwriteId,getAllClientOrdersByClientId,getAllOrganizationProducts } = require("../../../../utils/sql/legal")
 
 async function getClientFormDetails(req,res){
   console.log("%c 🌽 req", "color:#b03734", req);
   try{
-    const validationResponse = await validateAuth(req,res)
+    const validationResponse = await validateUserAuth(req,res)
       if (!validationResponse.isValid) {
         return res.status(403).set({"Access-Control-Allow-Origin": "*"}).json({
           message: "Failed to authenticate bearer token.",
