@@ -28,7 +28,7 @@ const validateUserAuth = async (req, res) => {
 };
 
 const validateAdminAuth = async (req, res) => {
-  console.log('%c 🍰 req.headers.authorization', 'color:#7f2b82', req.headers.authorization);
+  console.log('%c 🍰 req.headers.authorization', 'color:#7f2b82', req);
   const fallbackCookieName = getAuthUserFallbackCookie('admin');
   const reqConfig = {
     signed: adminCookieConfig.signed,

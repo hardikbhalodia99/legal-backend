@@ -60,6 +60,21 @@ async function createSQLClient({client_name,client_email,appwrite_id,organizatio
   }
 }
 
+async function checkClientBelongsToOrganization({client_id,organization_id}){
+  try{
+    const client = await getClientByClientId({client_id : client_id})
+    
+    if(client && client.organization_id === organization_id){
+      return true
+    }else{
+      return false
+    }
+  }catch(error){
+    console.error("Server Error at sql/client in checkClientBelongsToOrganization ==> Error : ",error)
+  }
+}
+
 module.exports.createSQLClient = createSQLClient
 module.exports.getClientByClientId = getClientByClientId
 module.exports.getClientByAppwriteId = getClientByAppwriteId;
+module.exports.checkClientBelongsToOrganization = checkClientBelongsToOrganization

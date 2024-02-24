@@ -1,4 +1,4 @@
-const { createSQLClient, getClientByClientId,getClientByAppwriteId } = require("./client");
+const { createSQLClient, getClientByClientId,getClientByAppwriteId, checkClientBelongsToOrganization } = require("./client");
 const { createNewEmployee,getEmployeeByAppwriteId,getAllOrganizationEmployees, updateEmployeeDetailsById, disableEmployeeById, getEmployeeByEmployeeId } = require("./employee");
 const { createOrder, getAllClientOrdersByClientId,getClientsOrdersByProductId } = require("./order");
 const { createOrganization, getOrganizationByOrganizationId } = require("./organization");
@@ -10,6 +10,7 @@ const { getLegalDB, getClientModel, getOrganizationModel, getProductModel, getEm
 module.exports.createSQLClient = createSQLClient
 module.exports.getClientByClientId = getClientByClientId
 module.exports.getClientByAppwriteId = getClientByAppwriteId;
+module.exports.checkClientBelongsToOrganization = checkClientBelongsToOrganization;
 
 //order exports
 module.exports.createOrder = createOrder;

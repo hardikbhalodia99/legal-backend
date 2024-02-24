@@ -30,7 +30,13 @@ const ClientSchema = new Schema(
 				address_proof_link : {type : String}
 			}
 		},
-		
+		invoice_details : {
+			invoice_to_name : {type : String},
+			address_1,
+			address_2,
+			address_3,
+			gst_number
+		},
 	
 		isDeleted: {
 			type: Boolean,

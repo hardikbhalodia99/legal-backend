@@ -1,6 +1,6 @@
 const { validateAdminAuth } = require("../../../../../middleware/auth")
 const { getMongoClientByClientId, getDirectorsByClientId, getNomineesByClientId } = require("../../../../../utils/mongo")
-const { getEmployeeByAppwriteId, getProductByOrganizationIdAndSlug } = require("../../../../../utils/sql/legal")
+const { getEmployeeByAppwriteId, getProductByOrganizationIdAndSlug, checkClientBelongsToOrganization } = require("../../../../../utils/sql/legal")
 
 async function getFormDetails(req,res){
   try{
@@ -16,11 +16,29 @@ async function getFormDetails(req,res){
         message: "Auth Error: Partner not found"
       })
     }
+    const {productSlug,clientId} = req.params
 
     const employee = await getEmployeeByAppwriteId({appwrite_id : appwrite_id})
+    if(!employee){
+      return res.status(400).set({"Access-Control-Allow-Origin": "*"}).json({
+        message: "Failed to fetch employee details"
+      })
+    }
+
+
+    const companyMatches = await checkClientBelongsToOrganization({
+      client_id : clientId,
+      organization_id : employee.organization_id
+    })
+
+    if(!companyMatches){
+      return res.status(400).set({"Access-Control-Allow-Origin": "*"}).json({
+        message: "You are not authorized to view this company details"
+      })
+    }
     const organization_id = employee.organization_id
 
-    const {productSlug,clientId} = req.params
+    
 
     const product = await getProductByOrganizationIdAndSlug({
       organization_id  : organization_id,
